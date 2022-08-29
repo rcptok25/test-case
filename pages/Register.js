@@ -1,6 +1,30 @@
+import {useState,useEffect} from 'react'
+import { useRouter } from 'next/router'
 import Image from 'next/image'
+import axios from './apiConfig/axios'
 import LoginPagebg from './../styles/images/login_bg.png'
+
 export default function Register() {
+  const router = useRouter()
+  
+  
+    useEffect(() => {
+      let indexPage="";
+      
+      axios.get(`usersControl.php`).then(response => {
+        indexPage=JSON.stringify(response.data.indexPage);
+        
+        if(indexPage){
+          router.push('./Login')
+        }
+        
+         
+      
+       
+      });
+
+  })
+  
   return (
     <section className="flex flex-col md:flex-row h-screen items-center">
     <div className="bg-blue-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">

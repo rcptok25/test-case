@@ -1,11 +1,60 @@
+import {useState,useEffect} from 'react'
+import { useRouter } from 'next/router'
 import Image from 'next/image'
-
+import axios from './apiConfig/axios'
 import LoginPagebg from './../styles/images/login_bg.png'
 
 
 export default function Login() {
- 
+  const [username,setUsername]=useState()
+  const [password,setPassword]=useState()
+  const router = useRouter()
 
+   
+  useEffect(() => {
+    let indexPage="";
+    
+    axios.get(`usersControl.php`).then(response => {
+      indexPage=JSON.stringify(response.data.indexPage);
+      
+      if(indexPage){
+        
+      }
+      else{
+        router.push('./Register')
+      }
+      
+       
+    
+     
+    });
+
+})
+  function handleSubmit(e) {
+    e.preventDefault();
+    axios.post(`userLogin.php`,{username,password}).then(response => {
+      
+      console.log(response.data.userData)
+      if(response.data.message){
+        if(response.data.userData.UserType==="admin"){
+         window.localStorage.setItem("username",response.data.userData.Username);
+           router.push('./admin')
+      
+         }
+          else if(response.data.userData.UserType==="user"){
+            window.localStorage.setItem("username",response.data.userData.Username);
+              router.push('./user')
+          }
+      }
+      else{
+        console.log("error! try again.")
+      }
+      
+    
+     
+    });
+
+  }
   
 
   return (
@@ -23,7 +72,7 @@ export default function Login() {
       <h1 className="text-xl md:text-2xl font-bold leading-tight mt-12">
         Log in to your account
       </h1>
-      <form className="mt-6"  action="#" method="POST">
+      <form className="mt-6"  action="#" method="POST" onSubmit={handleSubmit}>
         <div>
           <label className="block text-gray-700">Username</label>
           <input
@@ -45,7 +94,7 @@ export default function Login() {
             name=""
             id=""
             placeholder="Enter Password"
-            minLength={6}
+           
             onChange={(e) => setPassword(e.target.value)}
             className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
             focus:bg-white focus:outline-none"
