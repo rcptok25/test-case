@@ -1,0 +1,18 @@
+{
+    "sourceFile": "lib/GoogleApi.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1661825137570,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1661825137570,
+            "name": "Commit-0",
+            "content": "import {GoogleApiWrapper} from 'google-maps-react';\r\n \r\n// ...\r\n \r\nexport class MapContainer extends React.Component {}\r\n \r\nexport default GoogleApiWrapper({\r\n  apiKey: (AIzaSyDpU8HNjtBEV3b5mb68Oo-bba7fvmz_WBs)\r\n})(MapContainer)"
+        }
+    ]
+}
