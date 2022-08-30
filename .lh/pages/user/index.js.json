@@ -3,11 +3,15 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 0,
+            "activePatchIndex": 1,
             "patches": [
                 {
                     "date": 1661821431421,
                     "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1661824871851,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,10 +12,11 @@\n       </Head>\r\n       <div className=\"md:flex min-h-screen relative\">\r\n       <SideNavBar />\r\n       <div className=\"w-full p-10\">\r\n-        In aliquip non incididunt aliqua magna ea enim amet. Nisi id aliqua eu officia eiusmod aute tempor aliquip et cupidatat aute nisi ex. Nisi velit eiusmod irure ullamco sint enim anim pariatur sunt commodo est ad. Eu labore enim duis cupidatat irure est culpa laborum proident eu ea elit. Do ut in nostrud esse eu nulla consectetur.\r\n-      </div>\r\n+      \r\n+      \r\n+       </div>\r\n     </div>\r\n     </>\r\n   )\r\n }\r\n"
                 }
             ],
             "date": 1661821431421,

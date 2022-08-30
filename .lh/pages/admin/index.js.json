@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 48,
+            "activePatchIndex": 49,
             "patches": [
                 {
                     "date": 1661813183709,
@@ -200,6 +200,10 @@
                 {
                     "date": 1661820083463,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import React from 'react'\r\n-import { Header } from 'next/dist/lib/load-custom-routes';\r\n+\r\n import Head from \"next/head\";\r\n import Users from './pages/users'\r\n import SideNavBar from './component/SideNavbar'\r\n function Index() {\r\n"
+                },
+                {
+                    "date": 1661824846147,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -15,10 +15,12 @@\n       </Head>\r\n       <div className=\"md:flex min-h-screen relative\">\r\n       <SideNavBar />\r\n       <div className=\"w-full p-10\">\r\n-        In aliquip non incididunt aliqua magna ea enim amet. Nisi id aliqua eu officia eiusmod aute tempor aliquip et cupidatat aute nisi ex. Nisi velit eiusmod irure ullamco sint enim anim pariatur sunt commodo est ad. Eu labore enim duis cupidatat irure est culpa laborum proident eu ea elit. Do ut in nostrud esse eu nulla consectetur.\r\n-      </div>\r\n+        \r\n+        \r\n+        \r\n+           </div>\r\n     </div>\r\n     \r\n     \r\n     </>\r\n"
                 }
             ],
             "date": 1661813183709,

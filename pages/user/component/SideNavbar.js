@@ -35,7 +35,7 @@ export default function navbar() {
       {/* MAIN SIDEBAR */}
       <div
         ref={sideBarRef}
-        className="bg-purple-800 w-48 space-y-10 px-5 py-7  absolute inset-y-0 left-0 transform -translate-x-full
+        className="bg-neutral-300 w-48 space-y-10 px-5 py-7  absolute inset-y-0 left-0 transform -translate-x-full
         md:relative md:translate-x-0 z-50 transition duration-200 ease-in-out flex flex-col child:transition-all md:max-h-screen md:min-h-screen md:sticky md:top-0"
       >
         <a href="#" className="w-8 h-8 text-3xl font-extrabold">
