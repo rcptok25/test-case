@@ -20,7 +20,7 @@ export default function navbar() {
   }
 
   return (
-    <div className="max-h-screen md:sticky md:top-0 z-50 text-white">
+    <div className="max-h-screen md:sticky md:top-0 z-50 text-black">
       {/* MOBILE SIDEBAR */}
       <div className="bg-purple-800 flex justify-between p-2 items-center sticky top-0 z-30">
         <a className="block text-white font-extrabold dark:text-dw ">Test Case - Admin</a>

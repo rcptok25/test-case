@@ -1,8 +1,33 @@
-import React from 'react'
+import { useDemo, useState } from 'react'
+import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api"
 
 import Head from "next/head";
 import SideNavBar from './../component/SideNavbar'
 function userAdd() {
+
+  const [location, setLocation] = useState('Maps Locations');
+
+  function Map() {
+    const position = { lat: 39.925533, lng: 32.866287 };
+    return (
+      <GoogleMap zoom={6} center={{ lat: 39.925533, lng: 32.866287 }}  mapContainerClassName="map-container" onClick={(e) => {setLocation(e.zb)}}  >
+      <Marker position={{ lat: 39.925533, lng: 32.866287 }}  icon={{
+        // path: google.maps.SymbolPath.CIRCLE,
+        url: "../../../styles/ico/map.png",
+        scaledSize: { width: "30px", height: "30px" },
+        anchor: { x: 15, y: 15 },
+      }}   />
+      </GoogleMap>
+
+    );
+  }
+  const { isLoaded } = useJsApiLoader({
+    googleMapsApiKey: "AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk",
+
+  });
+
+  if (!isLoaded) return <div>Loading....!</div>
+
   return (
     <>
     <Head>
@@ -12,9 +37,13 @@ function userAdd() {
     </Head>
     <div className="md:flex min-h-screen relative">
       <SideNavBar />
-      <div className="w-full p-10">
-        In aliquip non incididunt aliqua magna ea enim amet. Nisi id aliqua eu officia eiusmod aute tempor aliquip et cupidatat aute nisi ex. Nisi velit eiusmod irure ullamco sint enim anim pariatur sunt commodo est ad. Eu labore enim duis cupidatat irure est culpa laborum proident eu ea elit. Do ut in nostrud esse eu nulla consectetur.
-      </div>
+      <div className="md:flex w-full ">
+    
+          <div className='w-full h-full p-20'>
+            <Map />
+
+          </div>
+          </div>
     </div>
   </>
   )

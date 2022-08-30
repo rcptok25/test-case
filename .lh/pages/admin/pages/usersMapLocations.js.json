@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 156,
+            "activePatchIndex": 158,
             "patches": [
                 {
                     "date": 1661821350880,
@@ -632,6 +632,14 @@
                 {
                     "date": 1661838016871,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,9 +10,9 @@\n \r\n   function Map() {\r\n     const position = { lat: 39.925533, lng: 32.866287 };\r\n     return (\r\n-      <GoogleMap zoom={6} center={{ lat: 39.925533, lng: 32.866287 }}  mapContainerClassName=\"map-container\" onClick={(e) => console.log(e)}  >\r\n+      <GoogleMap zoom={6} center={{ lat: 39.925533, lng: 32.866287 }}  mapContainerClassName=\"map-container\" onClick={(e) => {setLocation(e.zb)}}  >\r\n       <Marker position={{ lat: 39.925533, lng: 32.866287 }}  icon={{\r\n         // path: google.maps.SymbolPath.CIRCLE,\r\n         url: \"../../../styles/ico/map.png\",\r\n         scaledSize: { width: \"30px\", height: \"30px\" },\r\n"
+                },
+                {
+                    "date": 1661850623819,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -81,9 +81,9 @@\n             </form>\r\n \r\n \r\n           </div>\r\n-          <div className='w-full h-full'>\r\n+          <div className='w-full h-full p-20'>\r\n             <Map />\r\n \r\n           </div>\r\n \r\n"
+                },
+                {
+                    "date": 1661850641514,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -81,9 +81,9 @@\n             </form>\r\n \r\n \r\n           </div>\r\n-          <div className='w-full h-full p-20'>\r\n+          <div className='w-full h-full'>\r\n             <Map />\r\n \r\n           </div>\r\n \r\n"
                 }
             ],
             "date": 1661821350880,

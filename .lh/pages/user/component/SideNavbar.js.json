@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 5,
+            "activePatchIndex": 6,
             "patches": [
                 {
                     "date": 1661821117286,
@@ -28,6 +28,10 @@
                 {
                     "date": 1661824865492,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,9 +34,9 @@\n       </div>\r\n       {/* MAIN SIDEBAR */}\r\n       <div\r\n         ref={sideBarRef}\r\n-        className=\"bg-purple-800 w-48 space-y-10 px-5 py-7  absolute inset-y-0 left-0 transform -translate-x-full\r\n+        className=\"bg-neutral-300 w-48 space-y-10 px-5 py-7  absolute inset-y-0 left-0 transform -translate-x-full\r\n         md:relative md:translate-x-0 z-50 transition duration-200 ease-in-out flex flex-col child:transition-all md:max-h-screen md:min-h-screen md:sticky md:top-0\"\r\n       >\r\n         <a href=\"#\" className=\"w-8 h-8 text-3xl font-extrabold\">\r\n          User\r\n"
+                },
+                {
+                    "date": 1661850395176,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -19,9 +19,9 @@\n     sideBarRef.current.classList.toggle('-translate-x-full')\r\n   }\r\n \r\n   return (\r\n-    <div className=\"max-h-screen md:sticky md:top-0 z-50 text-white\">\r\n+    <div className=\"max-h-screen md:sticky md:top-0 z-50 text-black\">\r\n       {/* MOBILE SIDEBAR */}\r\n       <div className=\"bg-purple-800 flex justify-between p-2 items-center sticky top-0 z-30\">\r\n         <a className=\"block text-white font-extrabold dark:text-dw \">Test Case - Admin</a>\r\n         <button\r\n"
                 }
             ],
             "date": 1661821117286,
