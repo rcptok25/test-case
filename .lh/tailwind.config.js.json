@@ -1,0 +1,22 @@
+{
+    "sourceFile": "tailwind.config.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 1,
+            "patches": [
+                {
+                    "date": 1661819674498,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                },
+                {
+                    "date": 1661820168251,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,27 +1,10 @@\n-const defaultTheme = require('tailwindcss/defaultConfig');\n-\n module.exports = {\n   content: [\n     \"./pages/**/*.{js,ts,jsx,tsx}\",\n     \"./components/**/*.{js,ts,jsx,tsx}\",\n   ],\n-  important: true,\n   theme: {\n-    ...defaultTheme,\n-    colors: {\n-      ...defaultTheme.colors,\n-      primary: \"#3B81F6\",\n-      white: '#ffffff',\n-      text: {\n-        DEFAULT: \"#1F2937\",\n-        light: \"#6C7281\",\n-      },\n-      light: {\n-        DEFAULT: \"#FAFBFC\",\n-        lighter: \"#F3F4F6\",\n-      },\n-    },\n     extend: {},\n   },\n   plugins: [],\n-}\n+}\n\\ No newline at end of file\n"
+                }
+            ],
+            "date": 1661819674498,
+            "name": "Commit-0",
+            "content": "const defaultTheme = require('tailwindcss/defaultConfig');\n\nmodule.exports = {\n  content: [\n    \"./pages/**/*.{js,ts,jsx,tsx}\",\n    \"./components/**/*.{js,ts,jsx,tsx}\",\n  ],\n  important: true,\n  theme: {\n    ...defaultTheme,\n    colors: {\n      ...defaultTheme.colors,\n      primary: \"#3B81F6\",\n      white: '#ffffff',\n      text: {\n        DEFAULT: \"#1F2937\",\n        light: \"#6C7281\",\n      },\n      light: {\n        DEFAULT: \"#FAFBFC\",\n        lighter: \"#F3F4F6\",\n      },\n    },\n    extend: {},\n  },\n  plugins: [],\n}\n"
+        }
+    ]
+}

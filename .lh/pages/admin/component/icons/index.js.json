@@ -1,0 +1,18 @@
+{
+    "sourceFile": "pages/admin/component/icons/index.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1661819346791,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1661819346791,
+            "name": "Commit-0",
+            "content": "export { default as ArticleIcon } from \"./ArticleIcon\";\r\nexport { default as HomeIcon } from \"./HomeIcon\";\r\nexport { default as UsersIcon } from \"./UsersIcon\";\r\nexport { default as VideosIcon } from \"./VideosIcon\";\r\nexport { default as CollapsIcon } from \"./CollapsIcon\";\r\nexport { default as LogoIcon } from \"./Logo\";\r\nexport { default as LogoutIcon } from \"./LogoutIcon\";\r\n"
+        }
+    ]
+}

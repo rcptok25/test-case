@@ -1,77 +1,79 @@
+import {
+  List,
+  SignOut,
+  UserList,
 
+  HouseSimple,
+  FilePdf,
+  MapPinLine,
+} from 'phosphor-react'
 import Link from 'next/link'
-import { GiHamburgerMenu } from "react-icons/gi";
-import { Disclosure } from "@headlessui/react";
-import { useRouter } from 'next/router'
-import { MdHome,MdOutlineLogout } from "react-icons/md";
-
-import {TbMapSearch} from "react-icons/tb";
-import { FaUsers } from "react-icons/fa";
-import {  FiUserPlus} from "react-icons/fi";
+import { useRef } from 'react'
 
 
+export default function navbar() {
+  
+  const sideBarRef = useRef()
+  
+  function toogleSideBar() {
+    sideBarRef.current.classList.toggle('-translate-x-full')
+  }
 
-function SideNavbar() {
-  const router = useRouter()
   return (
-    <div>
-      <Disclosure as="nav">
-        <Disclosure.Button className="absolute top-4 right-4 inline-flex items-center peer justify-center rounded-md p-2 text-gray-800 hover:bg-gray-900 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white group">
-          <GiHamburgerMenu
-            className="block md:hidden h-6 w-6"
-            aria-hidden="true"
-          />
-        </Disclosure.Button>
-        <div className="p-6 w-1/2 h-screen bg-white z-20 fixed top-0 -left-96 lg:left-0 lg:w-60  peer-focus:left-0 peer:transition ease-out delay-150 duration-200">
-          <div className="flex flex-col justify-start item-center">
-            <h1 className="text-base text-center cursor-pointer font-bold text-blue-900 border-b border-gray-100 pb-4 w-full">
-              Text Case - User
-            </h1>
-            <div className=" my-4 border-b border-gray-100 pb-4">
-            <div className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto" >
-                <MdHome className="text-2xl text-gray-600 group-hover:text-white " />
-                <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
-                 <Link href="/user">
-                 <a>Home</a>
-                 </Link>
-                </h3>
-              </div>
-              <div className="flex mb-2 justify-start items-center gap-4 pl-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto" >
-                <TbMapSearch className="text-2xl text-gray-600 group-hover:text-white " />
-                <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
-                <Link href="user/pages/MapLocations">
-                 <a> Map Locations </a>
-                 </Link>
-                 
-                </h3>
-              </div>
-              <div className="flex  mb-2 justify-start items-center gap-4 pl-5 hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
-                <FaUsers className="text-2xl text-gray-600 group-hover:text-white " />
-                <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
-                <Link href="user/pages/LocationsPDF">
-                 <a> Locations PDF</a>
-                 </Link>
-                </h3>
-              </div>
-              
-              
-             
-            </div>
-            <div className=" my-4">
-              <div className="flex mb-2 justify-start items-center gap-4 pl-5 border border-gray-200  hover:bg-gray-900 p-2 rounded-md group cursor-pointer hover:shadow-lg m-auto">
-                <MdOutlineLogout className="text-2xl text-gray-600 group-hover:text-white " />
-                <h3 className="text-base text-gray-800 group-hover:text-white font-semibold ">
-                <Link href="/">
-                 <a> Logout</a>
-                 </Link> 
-                </h3>
-              </div>
-            </div>
-          </div>
-        </div>
-      </Disclosure>
-    </div>
-  );
-}
+    <div className="max-h-screen md:sticky md:top-0 z-50 text-white">
+      {/* MOBILE SIDEBAR */}
+      <div className="bg-purple-800 flex justify-between p-2 items-center sticky top-0 z-30">
+        <a className="block text-white font-extrabold dark:text-dw ">Test Case - Admin</a>
+        <button
+          
+          className="rounded focus:bg-purple-800"
+          onClick={toogleSideBar}
+        >
+          <List size={32} />
+        </button>
+      </div>
+      {/* MAIN SIDEBAR */}
+      <div
+        ref={sideBarRef}
+        className="bg-purple-800 w-48 space-y-10 px-5 py-7  absolute inset-y-0 left-0 transform -translate-x-full
+        md:relative md:translate-x-0 z-50 transition duration-200 ease-in-out flex flex-col child:transition-all md:max-h-screen md:min-h-screen md:sticky md:top-0"
+      >
+        <a href="#" className="w-8 h-8 text-3xl font-extrabold">
+         Admin
+        </a>
 
-export default SideNavbar;
+        <nav className="flex flex-col grow space-y-3">
+          <Link href='/user' passHref>
+            <a className="flex flex-row py-2.5 px-4 transition duration-200 rounded items-center space-x-3 hover:bg-blue-600 hover:text-white">
+              <HouseSimple size={20} />
+              <p>Home</p>
+            </a>
+          </Link>
+
+          <Link href='/user/pages/MapLocations' >
+            <div className="flex flex-row py-2.5 px-4 transition duration-200 rounded items-center space-x-3 hover:bg-blue-600 hover:text-white">
+              <MapPinLine size={20} />
+              <p>Map Locations</p>
+            </div>
+          </Link>
+          <Link href='/user/pages/LocationsPDF' passHref>
+            <a className="flex flex-row py-2.5 px-4 transition duration-200 rounded items-center space-x-3 hover:bg-blue-600 hover:text-white">
+              <FilePdf size={20} />
+              <p>Map Location PDF</p>
+            </a>
+          </Link>
+          
+        </nav>
+
+        <button
+          onClick={console.log('signout')}
+          color="error"
+          className="flex flex-row w-full items-center  rounded py-2.5 my-8 space-x-2 hover:bg-red-500 hover:text-white transition duration-200"
+        >
+          <SignOut className=" mx-2" size={20} />
+          <a>Logout</a>
+        </button>
+      </div>
+    </div>
+  )
+}

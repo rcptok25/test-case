@@ -1,0 +1,18 @@
+{
+    "sourceFile": "pages/admin/component/icons/CollapsIcon.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1661819334790,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1661819334790,
+            "name": "Commit-0",
+            "content": "import * as React from \"react\";\r\n\r\nfunction CollapsIcon({ fill = \"#6C7281\", ...rest }) {\r\n  return (\r\n    <svg\r\n      width={16}\r\n      height={15}\r\n      fill=\"none\"\r\n      xmlns=\"http://www.w3.org/2000/svg\"\r\n      {...rest}\r\n    >\r\n      <path\r\n        d=\"M8.901 1.768L7.134 0 0 7.134l7.134 7.133L8.9 12.5 3.535 7.134l5.366-5.367z\"\r\n        fill={fill}\r\n      />\r\n      <path\r\n        d=\"M13.384 0L6.25 7.134l7.134 7.133L15.15 12.5 9.785 7.134l5.366-5.367L13.384 0z\"\r\n        fill={fill}\r\n      />\r\n    </svg>\r\n  );\r\n}\r\n\r\nexport default CollapsIcon;\r\n"
+        }
+    ]
+}

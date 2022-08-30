@@ -1,0 +1,18 @@
+{
+    "sourceFile": "pages/admin/component/icons/ArticleIcon.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1661819330057,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1661819330057,
+            "name": "Commit-0",
+            "content": "import * as React from \"react\";\r\n\r\nfunction ArticleIcon({ fill = \"#6C7281\", ...rest }) {\r\n  return (\r\n    <svg\r\n      width={24}\r\n      height={24}\r\n      fill=\"none\"\r\n      viewBox=\"0 0 24 24\"\r\n      xmlns=\"http://www.w3.org/2000/svg\"\r\n      {...rest}\r\n    >\r\n      <path\r\n        d=\"M19 5v14H5V5h14zm0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z\"\r\n        fill={fill}\r\n      />\r\n      <path d=\"M14 17H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z\" fill={fill} />\r\n    </svg>\r\n  );\r\n}\r\n\r\nexport default ArticleIcon;\r\n"
+        }
+    ]
+}

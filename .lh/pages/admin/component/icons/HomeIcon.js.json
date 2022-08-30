@@ -1,0 +1,18 @@
+{
+    "sourceFile": "pages/admin/component/icons/HomeIcon.js",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1661819339311,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1661819339311,
+            "name": "Commit-0",
+            "content": "import * as React from \"react\";\r\n\r\nfunction HomeIcon({ fill = \"#6C7281\", ...rest }) {\r\n  return (\r\n    <svg\r\n      width={24}\r\n      height={24}\r\n      fill=\"none\"\r\n      viewBox=\"0 0 24 24\"\r\n      xmlns=\"http://www.w3.org/2000/svg\"\r\n      {...rest}\r\n    >\r\n      <path\r\n        d=\"M3 13h1v7c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2v-7h1a1.001 1.001 0 00.707-1.707l-9-9a1 1 0 00-1.414 0l-9 9A1 1 0 003 13zm7 7v-5h4v5h-4zm2-15.586l6 6V15l.001 5H16v-5c0-1.103-.897-2-2-2h-4c-1.103 0-2 .897-2 2v5H6v-9.586l6-6z\"\r\n        fill={fill}\r\n      />\r\n    </svg>\r\n  );\r\n}\r\n\r\nexport default HomeIcon;\r\n"
+        }
+    ]
+}
