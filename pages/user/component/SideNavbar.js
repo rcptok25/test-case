@@ -39,7 +39,7 @@ export default function navbar() {
         md:relative md:translate-x-0 z-50 transition duration-200 ease-in-out flex flex-col child:transition-all md:max-h-screen md:min-h-screen md:sticky md:top-0"
       >
         <a href="#" className="w-8 h-8 text-3xl font-extrabold">
-         Admin
+         User
         </a>
 
         <nav className="flex flex-col grow space-y-3">

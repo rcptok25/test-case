@@ -77,19 +77,7 @@ export default function Register() {
             required=""
           />
         </div>
-        <div>
-          <label className="block text-gray-700">Username</label>
-          <input
-            type="text"
-            name=""
-            id=""
-            placeholder="Enter Username"
-            className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
-            autofocus=""
-            autoComplete=""
-            required=""
-          />
-        </div>
+        
         <div className="mt-4">
           <label className="block text-gray-700">Password</label>
           <input

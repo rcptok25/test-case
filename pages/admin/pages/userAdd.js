@@ -13,8 +13,91 @@ function userAdd() {
     <div className="md:flex min-h-screen relative">
       <SideNavBar />
       <div className="w-full p-10">
-        In aliquip non incididunt aliqua magna ea enim amet. Nisi id aliqua eu officia eiusmod aute tempor aliquip et cupidatat aute nisi ex. Nisi velit eiusmod irure ullamco sint enim anim pariatur sunt commodo est ad. Eu labore enim duis cupidatat irure est culpa laborum proident eu ea elit. Do ut in nostrud esse eu nulla consectetur.
-      </div>
+
+      <section className="flex flex-col md:flex-row h-screen items-center">
+    
+  <div
+    className="bg-white w-full md:max-w-md lg:max-w-full md:mx-auto md:mx-0 md:w-1/2 xl:w-1/3 h-screen px-6 lg:px-16 xl:px-12
+    flex items-center justify-center"
+  >
+    <div className="w-full h-100">
+      <h1 className="text-xl font-bold">New User Add</h1>
+      
+      <form className="mt-6" action="#" method="POST">
+      <div>
+          <label className="block text-gray-700">Name</label>
+          <input
+            type="text"
+            name=""
+            id=""
+            placeholder="Enter Name"
+            className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+            autofocus=""
+            autoComplete=""
+            required=""
+          />
+        </div>
+        <div>
+          <label className="block text-gray-700">Surname</label>
+          <input
+            type="text"
+            name=""
+            id=""
+            placeholder="Enter Surname"
+            className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+            autofocus=""
+            autoComplete=""
+            required=""
+          />
+        </div>
+        
+        <div>
+          <label className="block text-gray-700">Username</label>
+          <input
+            type="text"
+            name=""
+            id=""
+            placeholder="Enter Username"
+            className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
+            autofocus=""
+            autoComplete=""
+            required=""
+          />
+        </div>
+        <div className="mt-4">
+          <label className="block text-gray-700">Password</label>
+          <input
+            type="password"
+            name=""
+            id=""
+            placeholder="Enter Password"
+            minLength={6}
+            className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
+            focus:bg-white focus:outline-none"
+            required=""
+          />
+        </div>
+      
+        <button
+          type="submit"
+          className="w-full block bg-blue-500 hover:bg-blue-400 focus:bg-blue-400 text-white font-semibold rounded-lg
+          px-4 py-3 mt-6"
+        >
+          User Add
+        </button>
+      </form>
+      <p className="text-sm text-gray-500 mt-12 text-red-600">
+      To add a location to the user, go to the 'Users Map Locations' page.
+      </p>
+     
+      
+    </div>
+  </div>
+</section>
+
+
+
+       </div>
     </div>
 
   

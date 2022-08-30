@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 3,
+            "activePatchIndex": 4,
             "patches": [
                 {
                     "date": 1661821117286,
@@ -20,6 +20,10 @@
                 {
                     "date": 1661821220060,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -51,15 +51,15 @@\n           </Link>\r\n \r\n           <Link href='/user/pages/MapLocations' >\r\n             <div className=\"flex flex-row py-2.5 px-4 transition duration-200 rounded items-center space-x-3 hover:bg-blue-600 hover:text-white\">\r\n-              <FilePdf size={20} />\r\n+              <MapPinLine size={20} />\r\n               <p>Map Locations</p>\r\n             </div>\r\n           </Link>\r\n           <Link href='/user/pages/LocationsPDF' passHref>\r\n             <a className=\"flex flex-row py-2.5 px-4 transition duration-200 rounded items-center space-x-3 hover:bg-blue-600 hover:text-white\">\r\n-              <MapPinLine size={20} />\r\n+              <FilePdf size={20} />\r\n               <p>Map Location PDF</p>\r\n             </a>\r\n           </Link>\r\n           \r\n"
+                },
+                {
+                    "date": 1661822223003,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -38,9 +38,9 @@\n         className=\"bg-purple-800 w-48 space-y-10 px-5 py-7  absolute inset-y-0 left-0 transform -translate-x-full\r\n         md:relative md:translate-x-0 z-50 transition duration-200 ease-in-out flex flex-col child:transition-all md:max-h-screen md:min-h-screen md:sticky md:top-0\"\r\n       >\r\n         <a href=\"#\" className=\"w-8 h-8 text-3xl font-extrabold\">\r\n-         Admin\r\n+         User\r\n         </a>\r\n \r\n         <nav className=\"flex flex-col grow space-y-3\">\r\n           <Link href='/user' passHref>\r\n"
                 }
             ],
             "date": 1661821117286,
