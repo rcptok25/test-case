@@ -1,33 +1,64 @@
-import { useDemo, useState } from 'react'
-import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api"
+import { useDemo, useState,useEffect } from 'react'
+import GoogleMapReact from 'google-map-react';
 import Head from "next/head";
 import SideNavBar from './../component/SideNavbar'
 
 
-function usersMapLocations() {
 
-  const [location, setLocation] = useState('Maps Locations');
+export default function usersMapLocations() {
 
-  function Map() {
-    const position = { lat: 39.925533, lng: 32.866287 };
+ 
+
+  const [latLng, setLatLng] = useState();
+  const [maps, setMaps] = useState(null);
+  const [map, setMap] = useState(null);
+  const [location,setLocation]=useState("Maps Location")
+
+  const MapMarker = ({ position, maps, map }) => {
+
+    useEffect(() => {
+        const marker = new maps.Marker({
+            position,
+            map,
+            title: "Hello World!",
+        });
+        setLocation("Lat: "+position?.lat+", Lng: "+position?.lng)
+    }, [position?.lat,position?.lng])
     return (
-      <GoogleMap zoom={6} center={{ lat: 39.925533, lng: 32.866287 }}  mapContainerClassName="map-container" onClick={(e) => {setLocation(e.zb)}}  >
-      <Marker position={{ lat: 39.925533, lng: 32.866287 }}  icon={{
-        // path: google.maps.SymbolPath.CIRCLE,
-        url: "../../../styles/ico/map.png",
-        scaledSize: { width: "30px", height: "30px" },
-        anchor: { x: 15, y: 15 },
-      }}   />
-      </GoogleMap>
-
-    );
+        <></>
+    )
+  
   }
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: "AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk",
 
-  });
 
-  if (!isLoaded) return <div>Loading....!</div>
+
+  const handleApiLoaded = (map, maps) => {
+      setMap(map);
+      setMaps(maps);
+      map.setOptions({
+       
+          fullscreenControl: false,
+          mapTypeControl: true,
+          mapTypeControlOptions: {
+            
+          
+              style: maps.MapTypeControlStyle.DEFAULT,
+              position: maps.ControlPosition.TOP_CENTER,
+              mapTypeIds: ["roadmap", "satellite"],
+          },
+          zoomControl: false,
+      });
+  };
+
+  const defaultProps = {
+      center: {
+          lat: 10.99835602,
+          lng: 77.01502627
+      },
+      zoom: 11
+  };
+
+
   return (
     <>
       <Head>
@@ -59,6 +90,7 @@ function usersMapLocations() {
                   type="text"
                   name=""
                   id=""
+               
                   placeholder={location}
                   className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
                   autofocus=""
@@ -83,7 +115,23 @@ function usersMapLocations() {
 
           </div>
           <div className='w-full h-full'>
-            <Map />
+          <GoogleMapReact
+                bootstrapURLKeys={{ key: "AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk" }}
+                defaultCenter={defaultProps.center}
+                defaultZoom={defaultProps.zoom}
+                onClick={(e) => {setLatLng(e)}}
+                onGoogleApiLoaded={({ map, maps }) => {
+                    handleApiLoaded(map, maps);
+                }}
+                
+            >
+                {!!latLng ?
+                    <>
+                        <MapMarker map={map} maps={maps} position={latLng}></MapMarker>
+                    </> : <></>
+
+                }
+            </GoogleMapReact>
 
           </div>
 
@@ -101,5 +149,5 @@ function usersMapLocations() {
   )
 }
 
-export default usersMapLocations
+
 
