@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 14,
+            "activePatchIndex": 15,
             "patches": [
                 {
                     "date": 1661821421061,
@@ -64,6 +64,10 @@
                 {
                     "date": 1661918323315,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,9 +37,10 @@\n           mapTypeControlOptions: {\r\n             \r\n           \r\n               style: maps.MapTypeControlStyle.DEFAULT,\r\n-              position: maps.ControlPosition.TOP_CENTER,\r\n+              position:{llat: 41.013281483623146,\r\n+                lng: 28.978454052998472},\r\n               mapTypeIds: [\"roadmap\", \"satellite\"],\r\n           },\r\n           zoomControl: false,\r\n       });\r\n"
+                },
+                {
+                    "date": 1661918414914,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,10 +37,9 @@\n           mapTypeControlOptions: {\r\n             \r\n           \r\n               style: maps.MapTypeControlStyle.DEFAULT,\r\n-              position:{llat: 41.013281483623146,\r\n-                lng: 28.978454052998472},\r\n+              position: maps.ControlPosition.TOP_CENTER,\r\n               mapTypeIds: [\"roadmap\", \"satellite\"],\r\n           },\r\n           zoomControl: false,\r\n       });\r\n"
                 }
             ],
             "date": 1661821421061,
