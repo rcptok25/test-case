@@ -4,6 +4,8 @@ import Head from "next/head";
 import Users from './pages/users'
 import SideNavBar from './component/SideNavbar'
 function Index() {
+  const a= window.localStorage.getItem("username");
+  console.log(a);
   return (
     
     <>

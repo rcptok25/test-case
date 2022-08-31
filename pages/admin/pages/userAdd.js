@@ -1,8 +1,54 @@
-import React from 'react'
-
+import {useEffect,useState} from 'react'
+import { useRouter } from 'next/router'
+import axios from './../../apiConfig/axios'
 import Head from "next/head";
 import SideNavBar from './../component/SideNavbar'
+import swal from 'sweetalert';
+
 function userAdd() {
+  const router = useRouter()
+    const [name,setName]=useState()
+    const [surname,setSurname]=useState()
+    const [username,setUsername]=useState()
+    const [password,setPassword]=useState()
+    const userType="user"
+
+    function addUser(e){
+      e.preventDefault();
+      
+      swal({
+        title: "Are you sure?",
+        text: "Do you approve adding users?",
+        icon: "info",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((adduser) => {
+        if (adduser) {
+          axios.post(`userRegister.php`,{name,surname,username,password,userType}).then(response => {
+      
+            console.log(response.data.userData)
+            if(response.data.message){
+              
+              swal("The user has been successfully registered.", {
+                icon: "success",
+              })
+              window.sessionStorage.setItem("Registeruser",username);
+              router.push('./usersMapLocations')
+            }
+            else{
+              console.log("error! try again.")
+            }
+            
+          
+           
+          });
+          
+        } else {
+          swal("You have canceled adding users.");
+        }
+      });
+    }
   return (
     <>
     <Head>
@@ -23,13 +69,14 @@ function userAdd() {
     <div className="w-full h-100">
       <h1 className="text-xl font-bold">New User Add</h1>
       
-      <form className="mt-6" action="#" method="POST">
+      <form className="mt-6"  method="POST" >
       <div>
           <label className="block text-gray-700">Name</label>
           <input
             type="text"
             name=""
             id=""
+            onChange={(e) => setName(e.target.value)}
             placeholder="Enter Name"
             className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
             autofocus=""
@@ -43,6 +90,7 @@ function userAdd() {
             type="text"
             name=""
             id=""
+            onChange={(e) => setSurname(e.target.value)}
             placeholder="Enter Surname"
             className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
             autofocus=""
@@ -57,6 +105,7 @@ function userAdd() {
             type="text"
             name=""
             id=""
+            onChange={(e) => setUsername(e.target.value)}
             placeholder="Enter Username"
             className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
             autofocus=""
@@ -70,6 +119,7 @@ function userAdd() {
             type="password"
             name=""
             id=""
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter Password"
             minLength={6}
             className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
@@ -79,7 +129,7 @@ function userAdd() {
         </div>
       
         <button
-          type="submit"
+          type="button" onClick={addUser}
           className="w-full block bg-blue-500 hover:bg-blue-400 focus:bg-blue-400 text-white font-semibold rounded-lg
           px-4 py-3 mt-6"
         >

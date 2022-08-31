@@ -3,10 +3,15 @@ import { useRouter } from 'next/router'
 import Image from 'next/image'
 import axios from './apiConfig/axios'
 import LoginPagebg from './../styles/images/login_bg.png'
+import Swal from 'sweetalert2'
 
 export default function Register() {
-  const router = useRouter()
-  
+    const router = useRouter()
+    const [name,setName]=useState()
+    const [surname,setSurname]=useState()
+    const [username,setUsername]=useState()
+    const [password,setPassword]=useState()
+    const userType="admin"
   
     useEffect(() => {
       let indexPage="";
@@ -17,14 +22,22 @@ export default function Register() {
         if(indexPage){
           router.push('./Login')
         }
-        
-         
-      
-       
+               
       });
-
   })
+
   
+  function register(e){
+    Swal.fire({
+      title: 'Error!',
+      text: 'Do you want to continue',
+      icon: 'error',
+      confirmButtonText: 'Cool'
+    })
+
+  }
+
+
   return (
     <section className="flex flex-col md:flex-row h-screen items-center">
     <div className="bg-blue-600 hidden lg:block w-full md:w-1/2 xl:w-2/3 h-screen">
@@ -37,13 +50,15 @@ export default function Register() {
     <div className="w-full h-100">
       <h1 className="text-xl font-bold">TestApp - Register</h1>
       
-      <form className="mt-6" action="#" method="POST">
+     
+      <form className="mt-6"  method="POST" >
       <div>
           <label className="block text-gray-700">Name</label>
           <input
             type="text"
             name=""
             id=""
+            onChange={(e) => setName(e.target.value)}
             placeholder="Enter Name"
             className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
             autofocus=""
@@ -57,6 +72,7 @@ export default function Register() {
             type="text"
             name=""
             id=""
+            onChange={(e) => setSurname(e.target.value)}
             placeholder="Enter Surname"
             className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
             autofocus=""
@@ -64,12 +80,14 @@ export default function Register() {
             required=""
           />
         </div>
+        
         <div>
           <label className="block text-gray-700">Username</label>
           <input
             type="text"
             name=""
             id=""
+            onChange={(e) => setUsername(e.target.value)}
             placeholder="Enter Username"
             className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
             autofocus=""
@@ -77,13 +95,13 @@ export default function Register() {
             required=""
           />
         </div>
-        
         <div className="mt-4">
           <label className="block text-gray-700">Password</label>
           <input
             type="password"
             name=""
             id=""
+            onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter Password"
             minLength={6}
             className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500
@@ -93,7 +111,7 @@ export default function Register() {
         </div>
       
         <button
-          type="submit"
+          type="button" onClick={register}
           className="w-full block bg-blue-500 hover:bg-blue-400 focus:bg-blue-400 text-white font-semibold rounded-lg
           px-4 py-3 mt-6"
         >

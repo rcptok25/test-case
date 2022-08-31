@@ -1,0 +1,18 @@
+{
+    "sourceFile": "pages/admin/pages/sss.scss",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1661880231131,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1661880231131,
+            "name": "Commit-0",
+            "content": "// SweetAlert2\r\n// github.com/sweetalert2/sweetalert2\r\n\r\n@import 'scss/theming';\r\n@import 'scss/animations';\r\n\r\nbody {\r\n  @include sweetalert2-body();\r\n  @include sweetalert2-toasts-body();\r\n}"
+        }
+    ]
+}

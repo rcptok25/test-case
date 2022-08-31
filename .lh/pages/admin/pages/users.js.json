@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 39,
+            "activePatchIndex": 52,
             "patches": [
                 {
                     "date": 1661814363951,
@@ -164,6 +164,58 @@
                 {
                     "date": 1661824739246,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n       <div className=\"md:flex min-h-screen relative bg-neutral-100\">\r\n         <SideNavBar />\r\n         <div className=\"w-full p-10 flex justify-center  flex-col\">\r\n \r\n-          <div className='mb-10 mt-10'>\r\n+          <div className='mb-10 mt-30'>\r\n              <h3 className='text-black font-bold'>User List</h3>\r\n           </div>\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1661888486668,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,11 @@\n \r\n import Head from \"next/head\";\r\n import SideNavBar from './../component/SideNavbar'\r\n function users() {\r\n+  const a= window.localStorage.getItem(\"username\");\r\n+  console.log(a);\r\n+   \r\n   return (\r\n     <>\r\n       <Head>\r\n         <title>Test Case - Users</title>\r\n"
+                },
+                {
+                    "date": 1661899974177,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,11 +1,29 @@\n-import React from 'react'\r\n+import React, { useEffect, useState } from 'react'\r\n \r\n import Head from \"next/head\";\r\n import SideNavBar from './../component/SideNavbar'\r\n function users() {\r\n+  const [userList,setUserList]=useState()\r\n+\r\n   const a= window.localStorage.getItem(\"username\");\r\n   console.log(a);\r\n+\r\n+  useEffect(() => {\r\n+\r\n+\r\n+    axios.get(`userList.php`).then(response => {\r\n+      setUserList(JSON.stringify(response.data.usersList));\r\n+\r\n+     \r\n+\r\n+\r\n+\r\n+    });\r\n+\r\n+  })\r\n+\r\n+\r\n    \r\n   return (\r\n     <>\r\n       <Head>\r\n@@ -33,8 +51,10 @@\n                 <th>Locaitons</th>\r\n               </tr>\r\n             </thead>\r\n             <tbody className='text-cyan-900 text-left'>\r\n+\r\n+\r\n               <tr className='bg-neutral-200 cursor-pointer duration-300 '>\r\n                 <td className='py-3 px-6'>\r\n                   Recep\r\n                 </td>\r\n"
+                },
+                {
+                    "date": 1661900005615,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,18 +2,18 @@\n \r\n import Head from \"next/head\";\r\n import SideNavBar from './../component/SideNavbar'\r\n function users() {\r\n-  const [userList,setUserList]=useState()\r\n+  const [userList,setUserList]=useState([])\r\n \r\n   const a= window.localStorage.getItem(\"username\");\r\n   console.log(a);\r\n \r\n   useEffect(() => {\r\n \r\n \r\n     axios.get(`userList.php`).then(response => {\r\n-      setUserList(JSON.stringify(response.data.usersList));\r\n+      setUserList(JSON.parse(response.data.usersList));\r\n \r\n      \r\n \r\n \r\n"
+                },
+                {
+                    "date": 1661900016796,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n \r\n     axios.get(`userList.php`).then(response => {\r\n       setUserList(JSON.parse(response.data.usersList));\r\n \r\n-     \r\n+     console.log(JSON.parse(response.data.usersList))\r\n \r\n \r\n \r\n     });\r\n"
+                },
+                {
+                    "date": 1661900067363,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import React, { useEffect, useState } from 'react'\r\n-\r\n+import axios from './apiConfig/axios'\r\n import Head from \"next/head\";\r\n import SideNavBar from './../component/SideNavbar'\r\n function users() {\r\n   const [userList,setUserList]=useState([])\r\n"
+                },
+                {
+                    "date": 1661900089776,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import React, { useEffect, useState } from 'react'\r\n-import axios from './apiConfig/axios'\r\n+import axios from './../../apiConfig/axios'\r\n import Head from \"next/head\";\r\n import SideNavBar from './../component/SideNavbar'\r\n function users() {\r\n   const [userList,setUserList]=useState([])\r\n"
+                },
+                {
+                    "date": 1661900121210,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,9 +4,9 @@\n import SideNavBar from './../component/SideNavbar'\r\n function users() {\r\n   const [userList,setUserList]=useState([])\r\n \r\n-  const a= window.localStorage.getItem(\"username\");\r\n+  const a= window.sessionStorage.getItem(\"username\");\r\n   console.log(a);\r\n \r\n   useEffect(() => {\r\n \r\n"
+                },
+                {
+                    "date": 1661900147924,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,10 +4,9 @@\n import SideNavBar from './../component/SideNavbar'\r\n function users() {\r\n   const [userList,setUserList]=useState([])\r\n \r\n-  const a= window.sessionStorage.getItem(\"username\");\r\n-  console.log(a);\r\n+ \r\n \r\n   useEffect(() => {\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1661900222488,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -10,11 +10,11 @@\n   useEffect(() => {\r\n \r\n \r\n     axios.get(`userList.php`).then(response => {\r\n-      setUserList(JSON.parse(response.data.usersList));\r\n+      setUserList(response.data.usersList);\r\n \r\n-     console.log(JSON.parse(response.data.usersList))\r\n+     console.log(response.data.usersList)\r\n \r\n \r\n \r\n     });\r\n"
+                },
+                {
+                    "date": 1661901596659,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n \r\n     axios.get(`userList.php`).then(response => {\r\n       setUserList(response.data.usersList);\r\n \r\n-     console.log(response.data.usersList)\r\n+     console.log(response.data.usersList[0].Name)\r\n \r\n \r\n \r\n     });\r\n"
+                },
+                {
+                    "date": 1661901635789,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n \r\n     axios.get(`userList.php`).then(response => {\r\n       setUserList(response.data.usersList);\r\n \r\n-     console.log(response.data.usersList[0].Name)\r\n+     console.log(response.data.usersList)\r\n \r\n \r\n \r\n     });\r\n"
+                },
+                {
+                    "date": 1661901975953,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -50,54 +50,37 @@\n                 <th>Locaitons</th>\r\n               </tr>\r\n             </thead>\r\n             <tbody className='text-cyan-900 text-left'>\r\n+            {userList.map(function(e,key){\r\n+                return(\r\n \r\n-\r\n-              <tr className='bg-neutral-200 cursor-pointer duration-300 '>\r\n-                <td className='py-3 px-6'>\r\n-                  Recep\r\n-                </td>\r\n-                <td className='py-3 px-6'>\r\n-                  Tok\r\n-                </td>\r\n-                <td className='py-3 px-6'>\r\n-                  rcptok25\r\n-                </td>\r\n-                <td className='py-3 px-6'>\r\n-                  lat: -34.397, lng: 150.644 , lat: -34.397, lng: 150.644\r\n-                </td>\r\n-              </tr>\r\n-              <tr className='bg-neutral-200 cursor-pointer duration-300'>\r\n-                <td className='py-3 px-6'>\r\n-                  Recep\r\n-                </td>\r\n-                <td className='py-3 px-6'>\r\n-                  Tok\r\n-                </td>\r\n-                <td className='py-3 px-6'>\r\n-                  rcptok25\r\n-                </td>\r\n-                <td className='py-3 px-6'>\r\n-                  lat: -34.397, lng: 150.644 , lat: -34.397, lng: 150.644\r\n-                </td>\r\n-              </tr>\r\n-              <tr className='bg-neutral-200 cursor-pointer duration-300 '>\r\n+<tr className='bg-neutral-200 cursor-pointer duration-300 '>\r\n                 <td className='py-3 px-6 '>\r\n-                  Recep\r\n+                 {e.Name}\r\n                 </td>\r\n                 <td className='py-3 px-6'>\r\n-                  Tok\r\n+                {e.Surname}\r\n                 </td>\r\n                 <td className='py-3 px-6'>\r\n-                  rcptok25\r\n+                {e.Username}\r\n                 </td>\r\n                 <td className='py-3 px-6'>\r\n-                  lat: -34.397, lng: 150.644 , lat: -34.397, lng: 150.644\r\n+                {e.Locations}\r\n                 </td>\r\n               </tr>\r\n \r\n \r\n+\r\n+                )\r\n+\r\n+\r\n+\r\n+            })}\r\n+\r\n+              \r\n+\r\n+\r\n             </tbody>\r\n           </table>\r\n           </div>\r\n          \r\n"
+                },
+                {
+                    "date": 1661902237978,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n \r\n     axios.get(`userList.php`).then(response => {\r\n       setUserList(response.data.usersList);\r\n \r\n-     console.log(response.data.usersList)\r\n+     \r\n \r\n \r\n \r\n     });\r\n"
                 }
             ],
             "date": 1661814363951,

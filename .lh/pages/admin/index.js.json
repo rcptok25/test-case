@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 52,
+            "activePatchIndex": 56,
             "patches": [
                 {
                     "date": 1661813183709,
@@ -216,6 +216,22 @@
                 {
                     "date": 1661835145920,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,6 +1,6 @@\n import React from 'react'\r\n-import { Wrapper, Status } from \"@googlemaps/react-wrapper\";\r\n+\r\n import Head from \"next/head\";\r\n import Users from './pages/users'\r\n import SideNavBar from './component/SideNavbar'\r\n function Index() {\r\n@@ -16,14 +16,10 @@\n       <div className=\"md:flex min-h-screen relative\">\r\n       <SideNavBar />\r\n       <div className=\"w-full p-10\">\r\n         \r\n-      <Wrapper apiKey={\"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\"}>\r\n-  <Map center={{lat: 39.925533\t, lng: 32.866287}} zoom={5}>\r\n-    <Marker position={{lat: 39.925533\t, lng: 32.866287}} />\r\n-  </Map>\r\n-</Wrapper>\r\n         \r\n+        \r\n            </div>\r\n     </div>\r\n     \r\n     \r\n"
+                },
+                {
+                    "date": 1661887663358,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,8 +3,9 @@\n import Head from \"next/head\";\r\n import Users from './pages/users'\r\n import SideNavBar from './component/SideNavbar'\r\n function Index() {\r\n+  const a= window.localStorage.getItem(\"username\");\r\n   return (\r\n     \r\n     <>\r\n       <Head>\r\n"
+                },
+                {
+                    "date": 1661887673068,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -4,8 +4,9 @@\n import Users from './pages/users'\r\n import SideNavBar from './component/SideNavbar'\r\n function Index() {\r\n   const a= window.localStorage.getItem(\"username\");\r\n+  console.log(a);\r\n   return (\r\n     \r\n     <>\r\n       <Head>\r\n"
+                },
+                {
+                    "date": 1661887762553,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,10 +3,10 @@\n import Head from \"next/head\";\r\n import Users from './pages/users'\r\n import SideNavBar from './component/SideNavbar'\r\n function Index() {\r\n-  const a= window.localStorage.getItem(\"username\");\r\n-  console.log(a);\r\n+  \r\n+\r\n   return (\r\n     \r\n     <>\r\n       <Head>\r\n"
+                },
+                {
+                    "date": 1661887923272,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -3,10 +3,10 @@\n import Head from \"next/head\";\r\n import Users from './pages/users'\r\n import SideNavBar from './component/SideNavbar'\r\n function Index() {\r\n-  \r\n-\r\n+  const a= window.localStorage.getItem(\"username\");\r\n+  console.log(a);\r\n   return (\r\n     \r\n     <>\r\n       <Head>\r\n"
                 }
             ],
             "date": 1661813183709,

@@ -1,61 +1,96 @@
-import { useDemo, useState,useEffect } from 'react'
+import { useDemo, useState, useEffect } from 'react'
 import GoogleMapReact from 'google-map-react';
 import Head from "next/head";
 import SideNavBar from './../component/SideNavbar'
+import axios from '../../apiConfig/axios';
+
+
 
 
 
 export default function usersMapLocations() {
 
- 
+  const [name, setName] = useState()
+  const [surname, setSurname] = useState()
+  const [username, setUsername] = useState()
+
+
+
 
   const [latLng, setLatLng] = useState();
   const [maps, setMaps] = useState(null);
   const [map, setMap] = useState(null);
-  const [location,setLocation]=useState("Maps Location")
+
+  const [location, setLocation] = useState("Maps Location")
+
+  const [selectedUser, setSelectedUser] = useState()
+
+  useEffect(() => {
+
+
+    setSelectedUser(window.sessionStorage.getItem("Registeruser"));
+
+    console.log(selectedUser)
+    if (selectedUser !== "") {
+
+
+      axios.post(`userData.php`, { selectedUser }).then(response => {
+        setUsername(window.sessionStorage.getItem("Registeruser"))
+        setSurname(response.data.Surname)
+        setName(response.data.Name)
+
+
+      })
+    }
+    else {
+      setSelectUser("Select User")
+    }
+  })
+
 
   const MapMarker = ({ position, maps, map }) => {
 
     useEffect(() => {
-        const marker = new maps.Marker({
-            position,
-            map,
-            title: "Hello World!",
-        });
-        setLocation("Lat: "+position?.lat+", Lng: "+position?.lng)
-    }, [position?.lat,position?.lng])
+
+      const marker = new maps.Marker({
+        position,
+        map,
+        title: "Hello World!",
+      });
+      setLocation("Lat: " + position?.lat + ", Lng: " + position?.lng)
+    }, [position?.lat, position?.lng])
     return (
-        <></>
+      <></>
     )
-  
+
   }
 
 
 
   const handleApiLoaded = (map, maps) => {
-      setMap(map);
-      setMaps(maps);
-      map.setOptions({
-       
-          fullscreenControl: false,
-          mapTypeControl: true,
-          mapTypeControlOptions: {
-            
-          
-              style: maps.MapTypeControlStyle.DEFAULT,
-              position: maps.ControlPosition.TOP_CENTER,
-              mapTypeIds: ["roadmap", "satellite"],
-          },
-          zoomControl: false,
-      });
+    setMap(map);
+    setMaps(maps);
+    map.setOptions({
+
+      fullscreenControl: false,
+      mapTypeControl: true,
+      mapTypeControlOptions: {
+
+
+        style: maps.MapTypeControlStyle.DEFAULT,
+        position: maps.ControlPosition.TOP_CENTER,
+        mapTypeIds: ["roadmap", "satellite"],
+      },
+      zoomControl: false,
+    });
   };
 
   const defaultProps = {
-      center: {
-          lat: 10.99835602,
-          lng: 77.01502627
-      },
-      zoom: 11
+    center: {
+      lat: 10.99835602,
+      lng: 77.01502627
+    },
+    zoom: 11
   };
 
 
@@ -70,9 +105,7 @@ export default function usersMapLocations() {
         <SideNavBar />
         <div className="md:flex w-full p-10 min-h-screen flex-col justify-start">
           <h1 className="text-xl font-bold">User Map Locations</h1>
-          <div className='md:flex w-full flex-row justify-start items-start mb-1 '>
-
-
+          <div className='md:flex w-full flex-col justify-start items-start mb-1 '>
             <form action="#" method="POST" className=' mt-6 md:flex w-full flex-row justify-start items-start '>
 
               <div className='w-1/5'>
@@ -84,53 +117,38 @@ export default function usersMapLocations() {
                   <option value="d">d</option>
                 </select>
               </div>
-              <div className='w-2/5 ml-1'>
-                <label className="block text-gray-700 w-full">Locations</label>
-                <input
-                  type="text"
-                  name=""
-                  id=""
-               
-                  placeholder={location}
-                  className="w-full px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none"
-                  autofocus=""
-                  autoComplete=""
-                  required=""
-                />
-              </div>
-              <div className='w-0.5/5 ml-1'>
 
-                <button
-                  type="submit"
-                  className="w-full block  bg-blue-500 hover:bg-blue-400 focus:bg-blue-400 text-white font-semibold rounded-lg
-          px-4 py-3 mt-8"
-                >
-                  Locations Edit
-                </button>
-              </div>
+
+
 
 
             </form>
 
+            <div className=' p-10'>
+              <label>User Name:  {name}  - User Surname: {surname}  - Username: {username}</label>
+
+            </div>
+
+
 
           </div>
           <div className='w-full h-full'>
-          <GoogleMapReact
-                bootstrapURLKeys={{ key: "AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk" }}
-                defaultCenter={defaultProps.center}
-                defaultZoom={defaultProps.zoom}
-                onClick={(e) => {setLatLng(e)}}
-                onGoogleApiLoaded={({ map, maps }) => {
-                    handleApiLoaded(map, maps);
-                }}
-                
-            >
-                {!!latLng ?
-                    <>
-                        <MapMarker map={map} maps={maps} position={latLng}></MapMarker>
-                    </> : <></>
+            <GoogleMapReact
+              bootstrapURLKeys={{ key: "AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk" }}
+              defaultCenter={defaultProps.center}
+              defaultZoom={defaultProps.zoom}
+              onClick={(e) => { setLatLng(e) }}
+              onGoogleApiLoaded={({ map, maps }) => {
+                handleApiLoaded(map, maps);
+              }}
 
-                }
+            >
+              {!!latLng ?
+                <>
+                  <MapMarker map={map} maps={maps} position={latLng}></MapMarker>
+                </> : <></>
+
+              }
             </GoogleMapReact>
 
           </div>

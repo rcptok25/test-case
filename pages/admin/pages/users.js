@@ -1,8 +1,28 @@
-import React from 'react'
-
+import React, { useEffect, useState } from 'react'
+import axios from './../../apiConfig/axios'
 import Head from "next/head";
 import SideNavBar from './../component/SideNavbar'
 function users() {
+  const [userList,setUserList]=useState([])
+
+ 
+
+  useEffect(() => {
+
+
+    axios.get(`userList.php`).then(response => {
+      setUserList(response.data.usersList);
+
+     
+
+
+
+    });
+
+  })
+
+
+   
   return (
     <>
       <Head>
@@ -31,48 +51,33 @@ function users() {
               </tr>
             </thead>
             <tbody className='text-cyan-900 text-left'>
-              <tr className='bg-neutral-200 cursor-pointer duration-300 '>
-                <td className='py-3 px-6'>
-                  Recep
-                </td>
-                <td className='py-3 px-6'>
-                  Tok
-                </td>
-                <td className='py-3 px-6'>
-                  rcptok25
-                </td>
-                <td className='py-3 px-6'>
-                  lat: -34.397, lng: 150.644 , lat: -34.397, lng: 150.644
-                </td>
-              </tr>
-              <tr className='bg-neutral-200 cursor-pointer duration-300'>
-                <td className='py-3 px-6'>
-                  Recep
-                </td>
-                <td className='py-3 px-6'>
-                  Tok
-                </td>
-                <td className='py-3 px-6'>
-                  rcptok25
-                </td>
-                <td className='py-3 px-6'>
-                  lat: -34.397, lng: 150.644 , lat: -34.397, lng: 150.644
-                </td>
-              </tr>
-              <tr className='bg-neutral-200 cursor-pointer duration-300 '>
+            {userList.map(function(e,key){
+                return(
+
+<tr className='bg-neutral-200 cursor-pointer duration-300 '>
                 <td className='py-3 px-6 '>
-                  Recep
+                 {e.Name}
                 </td>
                 <td className='py-3 px-6'>
-                  Tok
+                {e.Surname}
                 </td>
                 <td className='py-3 px-6'>
-                  rcptok25
+                {e.Username}
                 </td>
                 <td className='py-3 px-6'>
-                  lat: -34.397, lng: 150.644 , lat: -34.397, lng: 150.644
+                {e.Locations}
                 </td>
               </tr>
+
+
+
+                )
+
+
+
+            })}
+
+              
 
 
             </tbody>
