@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 3,
+            "activePatchIndex": 6,
             "patches": [
                 {
                     "date": 1661819723216,
@@ -20,6 +20,18 @@
                 {
                     "date": 1661831209461,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -18,7 +18,7 @@\n * {\n   box-sizing: border-box;\n }\n .map-container {\n-  width: 85%;\n-  height: 85%;\n+  width: 80%;\n+  height: 68%;\n }\n"
+                },
+                {
+                    "date": 1661917716356,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,4 +21,11 @@\n .map-container {\n   width: 80%;\n   height: 68%;\n }\n+\n+@media screen and (max-width: 600px) {\n+  .map-container {\n+    width: 80%;\n+    height: 68%;\n+  }\n+}\n\\ No newline at end of file\n"
+                },
+                {
+                    "date": 1661917738022,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -22,9 +22,9 @@\n   width: 80%;\n   height: 68%;\n }\n \n-@media screen and (max-width: 600px) {\n+@media screen and (max-width: 775px) {\n   .map-container {\n     width: 80%;\n     height: 68%;\n   }\n"
+                },
+                {
+                    "date": 1661917913748,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,15 +17,15 @@\n \n * {\n   box-sizing: border-box;\n }\n-.map-container {\n+.mapcontainer {\n   width: 80%;\n-  height: 68%;\n+  height: 72%;\n }\n \n @media screen and (max-width: 775px) {\n-  .map-container {\n-    width: 80%;\n-    height: 68%;\n+  .mapcontainer {\n+    width: 95%;\n+    height: 400px;\n   }\n }\n\\ No newline at end of file\n"
                 }
             ],
             "date": 1661819723216,

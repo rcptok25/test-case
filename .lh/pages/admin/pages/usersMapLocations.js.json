@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 275,
+            "activePatchIndex": 346,
             "patches": [
                 {
                     "date": 1661821350880,
@@ -1108,6 +1108,290 @@
                 {
                     "date": 1661899471781,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -108,9 +108,9 @@\n           <div className='md:flex w-full flex-col justify-start items-start mb-1 '>\r\n             <form action=\"#\" method=\"POST\" className=' mt-6 md:flex w-full flex-row justify-start items-start '>\r\n \r\n               <div className='w-1/5'>\r\n-                <label className=\"block text-gray-700 w-1/5 p-10\">Username</label>\r\n+                <label className=\"block text-gray-700 w-1/5\">Username</label>\r\n                 <select onChange={(e) => console.log(e.target.value)} className=\"w-full  px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none\">\r\n                   <option value=\"a\">a</option>\r\n                   <option selected value=\"b\">b</option>\r\n                   <option value=\"c\">c</option>\r\n@@ -123,9 +123,9 @@\n \r\n \r\n             </form>\r\n \r\n-            <div>\r\n+            <div className=' p-10'>\r\n               <label>User Name:  {name}  - User Surname: {surname}  - Username: {username}</label>\r\n \r\n             </div>\r\n \r\n"
+                },
+                {
+                    "date": 1661904988418,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -21,9 +21,9 @@\n   const [maps, setMaps] = useState(null);\r\n   const [map, setMap] = useState(null);\r\n \r\n   const [location, setLocation] = useState(\"Maps Location\")\r\n-\r\n+  const [userList, setUserList] = useState()\r\n   const [selectedUser, setSelectedUser] = useState()\r\n \r\n   useEffect(() => {\r\n \r\n@@ -44,8 +44,14 @@\n     }\r\n     else {\r\n       setSelectUser(\"Select User\")\r\n     }\r\n+\r\n+    axios.get(`userList.php`).then(response => {\r\n+      setUserList(response.data.usersList);\r\n+\r\n+    });\r\n+\r\n   })\r\n \r\n \r\n   const MapMarker = ({ position, maps, map }) => {\r\n@@ -110,12 +116,13 @@\n \r\n               <div className='w-1/5'>\r\n                 <label className=\"block text-gray-700 w-1/5\">Username</label>\r\n                 <select onChange={(e) => console.log(e.target.value)} className=\"w-full  px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none\">\r\n-                  <option value=\"a\">a</option>\r\n-                  <option selected value=\"b\">b</option>\r\n-                  <option value=\"c\">c</option>\r\n-                  <option value=\"d\">d</option>\r\n+                {userList?.map(function(e,key){\r\n+                  return(\r\n+                    <option value={e.Username}>{e.Username}</option>\r\n+                  )\r\n+                })}\r\n                 </select>\r\n               </div>\r\n \r\n \r\n@@ -124,9 +131,9 @@\n \r\n             </form>\r\n \r\n             <div className=' p-10'>\r\n-              <label>User Name:  {name}  - User Surname: {surname}  - Username: {username}</label>\r\n+              <label>Name:  {name}  -   Surname: {surname}  -   Username: {selectedUser}</label>\r\n \r\n             </div>\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1661905064893,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -50,9 +50,9 @@\n       setUserList(response.data.usersList);\r\n \r\n     });\r\n \r\n-  })\r\n+  },[])\r\n \r\n \r\n   const MapMarker = ({ position, maps, map }) => {\r\n \r\n"
+                },
+                {
+                    "date": 1661905199309,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -70,10 +70,8 @@\n     )\r\n \r\n   }\r\n \r\n-\r\n-\r\n   const handleApiLoaded = (map, maps) => {\r\n     setMap(map);\r\n     setMaps(maps);\r\n     map.setOptions({\r\n@@ -99,8 +97,9 @@\n     zoom: 11\r\n   };\r\n \r\n \r\n+\r\n   return (\r\n     <>\r\n       <Head>\r\n         <title>Test Case - Users Map Locations</title>\r\n@@ -115,9 +114,9 @@\n             <form action=\"#\" method=\"POST\" className=' mt-6 md:flex w-full flex-row justify-start items-start '>\r\n \r\n               <div className='w-1/5'>\r\n                 <label className=\"block text-gray-700 w-1/5\">Username</label>\r\n-                <select onChange={(e) => console.log(e.target.value)} className=\"w-full  px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none\">\r\n+                <select onChange={(e) => setSelectedUser(e.target.value)} className=\"w-full  px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none\">\r\n                 {userList?.map(function(e,key){\r\n                   return(\r\n                     <option value={e.Username}>{e.Username}</option>\r\n                   )\r\n"
+                },
+                {
+                    "date": 1661905278569,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -130,9 +130,11 @@\n \r\n             </form>\r\n \r\n             <div className=' p-10'>\r\n-              <label>Name:  {name}  -   Surname: {surname}  -   Username: {selectedUser}</label>\r\n+              <label>Name:  {name}  </label>\r\n+              <label>  Surname: {surname}  </label>\r\n+              <label>   Username: {selectedUser}</label>\r\n \r\n             </div>\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1661905304681,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -129,9 +129,9 @@\n \r\n \r\n             </form>\r\n \r\n-            <div className=' p-10'>\r\n+            <div className=' p-10 flex flex-col'>\r\n               <label>Name:  {name}  </label>\r\n               <label>  Surname: {surname}  </label>\r\n               <label>   Username: {selectedUser}</label>\r\n \r\n"
+                },
+                {
+                    "date": 1661905369603,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -34,9 +34,9 @@\n     if (selectedUser !== \"\") {\r\n \r\n \r\n       axios.post(`userData.php`, { selectedUser }).then(response => {\r\n-        setUsername(window.sessionStorage.getItem(\"Registeruser\"))\r\n+        setUsername(response.data.Username)\r\n         setSurname(response.data.Surname)\r\n         setName(response.data.Name)\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1661905784126,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,17 +12,17 @@\n \r\n   const [name, setName] = useState()\r\n   const [surname, setSurname] = useState()\r\n   const [username, setUsername] = useState()\r\n+  const [selectLocaion ,setSelectLocation]=useState()\r\n \r\n \r\n \r\n-\r\n   const [latLng, setLatLng] = useState();\r\n   const [maps, setMaps] = useState(null);\r\n   const [map, setMap] = useState(null);\r\n \r\n-  const [location, setLocation] = useState(\"Maps Location\")\r\n+  const [location, setLocation] = useState()\r\n   const [userList, setUserList] = useState()\r\n   const [selectedUser, setSelectedUser] = useState()\r\n \r\n   useEffect(() => {\r\n@@ -96,10 +96,14 @@\n     },\r\n     zoom: 11\r\n   };\r\n \r\n+function AddLocation(e){\r\n \r\n \r\n+\r\n+}\r\n+\r\n   return (\r\n     <>\r\n       <Head>\r\n         <title>Test Case - Users Map Locations</title>\r\n"
+                },
+                {
+                    "date": 1661908390923,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,9 +12,9 @@\n \r\n   const [name, setName] = useState()\r\n   const [surname, setSurname] = useState()\r\n   const [username, setUsername] = useState()\r\n-  const [selectLocaion ,setSelectLocation]=useState()\r\n+ \r\n \r\n \r\n \r\n   const [latLng, setLatLng] = useState();\r\n@@ -96,14 +96,24 @@\n     },\r\n     zoom: 11\r\n   };\r\n \r\n-function AddLocation(e){\r\n \r\n+  const updateFieldChanged = (e) =>  {\r\n \r\n+    const newArr = data.map((item, i) => {\r\n+      if (index === i) {\r\n+        return { ...item, [e.target.name]: e.target.value };\r\n+      } else {\r\n+        return item;\r\n+      }\r\n+    });\r\n+    setData(newArr);\r\n+  };\r\n \r\n-}\r\n \r\n+\r\n+\r\n   return (\r\n     <>\r\n       <Head>\r\n         <title>Test Case - Users Map Locations</title>\r\n@@ -129,10 +139,10 @@\n               </div>\r\n \r\n \r\n \r\n+                  {console.log(location)}\r\n \r\n-\r\n             </form>\r\n \r\n             <div className=' p-10 flex flex-col'>\r\n               <label>Name:  {name}  </label>\r\n"
+                },
+                {
+                    "date": 1661908455345,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -62,9 +62,9 @@\n         position,\r\n         map,\r\n         title: \"Hello World!\",\r\n       });\r\n-      setLocation(\"Lat: \" + position?.lat + \", Lng: \" + position?.lng)\r\n+      setLocation(...location,\"Lat: \" + position?.lat + \", Lng: \" + position?.lng)\r\n     }, [position?.lat, position?.lng])\r\n     return (\r\n       <></>\r\n     )\r\n"
+                },
+                {
+                    "date": 1661908906376,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -62,9 +62,9 @@\n         position,\r\n         map,\r\n         title: \"Hello World!\",\r\n       });\r\n-      setLocation(...location,\"Lat: \" + position?.lat + \", Lng: \" + position?.lng)\r\n+      setLocation({...location,[position]:position})\r\n     }, [position?.lat, position?.lng])\r\n     return (\r\n       <></>\r\n     )\r\n"
+                },
+                {
+                    "date": 1661908995892,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -62,9 +62,9 @@\n         position,\r\n         map,\r\n         title: \"Hello World!\",\r\n       });\r\n-      setLocation({...location,[position]:position})\r\n+     \r\n     }, [position?.lat, position?.lng])\r\n     return (\r\n       <></>\r\n     )\r\n@@ -158,9 +158,10 @@\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n-              onClick={(e) => { setLatLng(e) }}\r\n+              onClick={(e) => { setLatLng(e) , setLocation({...location,[position]:position}) }}\r\n+              \r\n               onGoogleApiLoaded={({ map, maps }) => {\r\n                 handleApiLoaded(map, maps);\r\n               }}\r\n \r\n"
+                },
+                {
+                    "date": 1661909030241,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -158,9 +158,9 @@\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n-              onClick={(e) => { setLatLng(e) , setLocation({...location,[position]:position}) }}\r\n+              onClick={(e) => { setLatLng(e) , setLocation({...location,[position]:e}) }}\r\n               \r\n               onGoogleApiLoaded={({ map, maps }) => {\r\n                 handleApiLoaded(map, maps);\r\n               }}\r\n"
+                },
+                {
+                    "date": 1661909065064,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -158,9 +158,9 @@\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n-              onClick={(e) => { setLatLng(e) , setLocation({...location,[position]:e}) }}\r\n+              onClick={(e) => { setLatLng(e) , console.log(\"sdas\") }}\r\n               \r\n               onGoogleApiLoaded={({ map, maps }) => {\r\n                 handleApiLoaded(map, maps);\r\n               }}\r\n"
+                },
+                {
+                    "date": 1661909324242,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -96,24 +96,21 @@\n     },\r\n     zoom: 11\r\n   };\r\n \r\n+  const handleOnChange = (e, i) => {\r\n+    setLocationa({\r\n+        ...thing, \r\n+        array: thing.array.filter((letter) => \r\n+            thing.array[i] === letter ? \r\n+            e.target.value : \r\n+            letter          \r\n+        ), \r\n+    }); \r\n+};\r\n \r\n-  const updateFieldChanged = (e) =>  {\r\n \r\n-    const newArr = data.map((item, i) => {\r\n-      if (index === i) {\r\n-        return { ...item, [e.target.name]: e.target.value };\r\n-      } else {\r\n-        return item;\r\n-      }\r\n-    });\r\n-    setData(newArr);\r\n-  };\r\n \r\n-\r\n-\r\n-\r\n   return (\r\n     <>\r\n       <Head>\r\n         <title>Test Case - Users Map Locations</title>\r\n"
+                },
+                {
+                    "date": 1661909377330,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -155,9 +155,9 @@\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n-              onClick={(e) => { setLatLng(e) , console.log(\"sdas\") }}\r\n+              onClick={(e) => { setLatLng(e) , handleOnChange(e) }}\r\n               \r\n               onGoogleApiLoaded={({ map, maps }) => {\r\n                 handleApiLoaded(map, maps);\r\n               }}\r\n"
+                },
+                {
+                    "date": 1661909421138,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -155,9 +155,9 @@\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n-              onClick={(e) => { setLatLng(e) , handleOnChange(e) }}\r\n+              onClick={(e) => { setLatLng(e) , handleOnChange(e.latLng.lat) }}\r\n               \r\n               onGoogleApiLoaded={({ map, maps }) => {\r\n                 handleApiLoaded(map, maps);\r\n               }}\r\n"
+                },
+                {
+                    "date": 1661909452417,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -155,9 +155,9 @@\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n-              onClick={(e) => { setLatLng(e) , handleOnChange(e.latLng.lat) }}\r\n+              onClick={(e) => { setLatLng(e) , handleOnChange(e.latLng.lat) ,console.log(e.latLng)}}\r\n               \r\n               onGoogleApiLoaded={({ map, maps }) => {\r\n                 handleApiLoaded(map, maps);\r\n               }}\r\n"
+                },
+                {
+                    "date": 1661909555299,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -155,9 +155,9 @@\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n-              onClick={(e) => { setLatLng(e) , handleOnChange(e.latLng.lat) ,console.log(e.latLng)}}\r\n+              onClick={(e) => { setLatLng(e) , console.log(e)}}\r\n               \r\n               onGoogleApiLoaded={({ map, maps }) => {\r\n                 handleApiLoaded(map, maps);\r\n               }}\r\n"
+                },
+                {
+                    "date": 1661909586719,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -155,9 +155,9 @@\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n-              onClick={(e) => { setLatLng(e) , console.log(e)}}\r\n+              onClick={(e) => { setLatLng(e) , console.log(e.lat)}}\r\n               \r\n               onGoogleApiLoaded={({ map, maps }) => {\r\n                 handleApiLoaded(map, maps);\r\n               }}\r\n"
+                },
+                {
+                    "date": 1661909653360,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -101,10 +101,10 @@\n     setLocationa({\r\n         ...thing, \r\n         array: thing.array.filter((letter) => \r\n             thing.array[i] === letter ? \r\n-            e.target.value : \r\n-            letter          \r\n+            e.lat: \r\n+            e.lat          \r\n         ), \r\n     }); \r\n };\r\n \r\n@@ -155,9 +155,9 @@\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n-              onClick={(e) => { setLatLng(e) , console.log(e.lat)}}\r\n+              onClick={(e) => { setLatLng(e) , handleOnChange(e) }}\r\n               \r\n               onGoogleApiLoaded={({ map, maps }) => {\r\n                 handleApiLoaded(map, maps);\r\n               }}\r\n"
+                },
+                {
+                    "date": 1661909757812,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -98,14 +98,11 @@\n   };\r\n \r\n   const handleOnChange = (e, i) => {\r\n     setLocationa({\r\n-        ...thing, \r\n-        array: thing.array.filter((letter) => \r\n-            thing.array[i] === letter ? \r\n-            e.lat: \r\n-            e.lat          \r\n-        ), \r\n+        ...thing, lat:e.lat\r\n+                \r\n+     } ) \r\n     }); \r\n };\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1661909778911,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -101,13 +101,13 @@\n     setLocationa({\r\n         ...thing, lat:e.lat\r\n                 \r\n      } ) \r\n-    }); \r\n-};\r\n+    }; \r\n \r\n \r\n \r\n+\r\n   return (\r\n     <>\r\n       <Head>\r\n         <title>Test Case - Users Map Locations</title>\r\n"
+                },
+                {
+                    "date": 1661909821000,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -98,9 +98,9 @@\n   };\r\n \r\n   const handleOnChange = (e, i) => {\r\n     setLocationa({\r\n-        ...thing, lat:e.lat\r\n+        ...location, lat:e.lat\r\n                 \r\n      } ) \r\n     }; \r\n \r\n"
+                },
+                {
+                    "date": 1661910278142,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -20,9 +20,9 @@\n   const [latLng, setLatLng] = useState();\r\n   const [maps, setMaps] = useState(null);\r\n   const [map, setMap] = useState(null);\r\n \r\n-  const [location, setLocation] = useState()\r\n+  const [location, setLocation] = useState({})\r\n   const [userList, setUserList] = useState()\r\n   const [selectedUser, setSelectedUser] = useState()\r\n \r\n   useEffect(() => {\r\n@@ -62,8 +62,9 @@\n         position,\r\n         map,\r\n         title: \"Hello World!\",\r\n       });\r\n+      console.log(location)\r\n      \r\n     }, [position?.lat, position?.lng])\r\n     return (\r\n       <></>\r\n@@ -96,18 +97,12 @@\n     },\r\n     zoom: 11\r\n   };\r\n \r\n-  const handleOnChange = (e, i) => {\r\n-    setLocationa({\r\n-        ...location, lat:e.lat\r\n-                \r\n-     } ) \r\n-    }; \r\n+  \r\n \r\n \r\n \r\n-\r\n   return (\r\n     <>\r\n       <Head>\r\n         <title>Test Case - Users Map Locations</title>\r\n@@ -152,9 +147,9 @@\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n-              onClick={(e) => { setLatLng(e) , handleOnChange(e) }}\r\n+              onClick={(e) => { setLatLng(e) ,setLocation({...location, lat: e.lat , lng:e.lng }) }}\r\n               \r\n               onGoogleApiLoaded={({ map, maps }) => {\r\n                 handleApiLoaded(map, maps);\r\n               }}\r\n"
+                },
+                {
+                    "date": 1661910554051,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,8 +8,12 @@\n \r\n \r\n \r\n export default function usersMapLocations() {\r\n+  const myArr= [\r\n+    {product: 'egg', price: 5, id:1},\r\n+    {product: 'cake', price: 3, id:2}\r\n+]\r\n \r\n   const [name, setName] = useState()\r\n   const [surname, setSurname] = useState()\r\n   const [username, setUsername] = useState()\r\n@@ -20,9 +24,9 @@\n   const [latLng, setLatLng] = useState();\r\n   const [maps, setMaps] = useState(null);\r\n   const [map, setMap] = useState(null);\r\n \r\n-  const [location, setLocation] = useState({})\r\n+  const [location, setLocation] = useState( myArr)\r\n   const [userList, setUserList] = useState()\r\n   const [selectedUser, setSelectedUser] = useState()\r\n \r\n   useEffect(() => {\r\n"
+                },
+                {
+                    "date": 1661910672984,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -151,9 +151,9 @@\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n-              onClick={(e) => { setLatLng(e) ,setLocation({...location, lat: e.lat , lng:e.lng }) }}\r\n+              onClick={(e) => { setLatLng(e) ,setLocation({...location, [lat: e.lat , lng:e.lng ]}) }}\r\n               \r\n               onGoogleApiLoaded={({ map, maps }) => {\r\n                 handleApiLoaded(map, maps);\r\n               }}\r\n"
+                },
+                {
+                    "date": 1661910702392,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -151,9 +151,9 @@\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n-              onClick={(e) => { setLatLng(e) ,setLocation({...location, [lat: e.lat , lng:e.lng ]}) }}\r\n+              onClick={(e) => { setLatLng(e) ,setLocation({...location, [lat]: e.lat , [lng]:e.lng }) }}\r\n               \r\n               onGoogleApiLoaded={({ map, maps }) => {\r\n                 handleApiLoaded(map, maps);\r\n               }}\r\n"
+                },
+                {
+                    "date": 1661910766089,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -151,9 +151,9 @@\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n-              onClick={(e) => { setLatLng(e) ,setLocation({...location, [lat]: e.lat , [lng]:e.lng }) }}\r\n+              onClick={(e) => { setLatLng(e) ,setLocation({...location, lat: e.lat , lng:e.lng }),console.log(e.latLng) }}\r\n               \r\n               onGoogleApiLoaded={({ map, maps }) => {\r\n                 handleApiLoaded(map, maps);\r\n               }}\r\n"
+                },
+                {
+                    "date": 1661910801953,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -151,9 +151,9 @@\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n-              onClick={(e) => { setLatLng(e) ,setLocation({...location, lat: e.lat , lng:e.lng }),console.log(e.latLng) }}\r\n+              onClick={(e) => { setLatLng(e) ,setLocation({...location, lat: e.lat , lng:e.lng }),console.log(\"sasa\"+e.latLng) }}\r\n               \r\n               onGoogleApiLoaded={({ map, maps }) => {\r\n                 handleApiLoaded(map, maps);\r\n               }}\r\n"
+                },
+                {
+                    "date": 1661910832670,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -151,9 +151,9 @@\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n-              onClick={(e) => { setLatLng(e) ,setLocation({...location, lat: e.lat , lng:e.lng }),console.log(\"sasa\"+e.latLng) }}\r\n+              onClick={(e) => { setLatLng(e) ,setLocation({...location, lat: e.lat , lng:e.lng }),console.log(\"sasa\"+e) }}\r\n               \r\n               onGoogleApiLoaded={({ map, maps }) => {\r\n                 handleApiLoaded(map, maps);\r\n               }}\r\n"
+                },
+                {
+                    "date": 1661910874795,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -151,9 +151,9 @@\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n-              onClick={(e) => { setLatLng(e) ,setLocation({...location, lat: e.lat , lng:e.lng }),console.log(\"sasa\"+e) }}\r\n+              onClick={(e) => { setLatLng(e) ,setLocation({...location, lat: e.lat , lng:e.lng }),console.log(e) }}\r\n               \r\n               onGoogleApiLoaded={({ map, maps }) => {\r\n                 handleApiLoaded(map, maps);\r\n               }}\r\n"
+                },
+                {
+                    "date": 1661910996747,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -151,9 +151,9 @@\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n-              onClick={(e) => { setLatLng(e) ,setLocation({...location, lat: e.lat , lng:e.lng }),console.log(e) }}\r\n+              onClick={(e) => { setLatLng(e) ,setLocation({...location, lat: e.lat , lng:e.lng }),console.log(e.lat+\"\" + e.lng) }}\r\n               \r\n               onGoogleApiLoaded={({ map, maps }) => {\r\n                 handleApiLoaded(map, maps);\r\n               }}\r\n"
+                },
+                {
+                    "date": 1661911209526,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -101,8 +101,13 @@\n     },\r\n     zoom: 11\r\n   };\r\n \r\n+  function Locationset (e){\r\n+    const location=\"lat:\"+e.lat+\", lng:\"+e.lng;\r\n+    setLocation({...location, location })\r\n+\r\n+  }\r\n   \r\n \r\n \r\n \r\n@@ -151,9 +156,9 @@\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n-              onClick={(e) => { setLatLng(e) ,setLocation({...location, lat: e.lat , lng:e.lng }),console.log(e.lat+\"\" + e.lng) }}\r\n+              onClick={(e) => { setLatLng(e),Locationset(e) }}\r\n               \r\n               onGoogleApiLoaded={({ map, maps }) => {\r\n                 handleApiLoaded(map, maps);\r\n               }}\r\n"
+                },
+                {
+                    "date": 1661911273713,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,9 +103,9 @@\n   };\r\n \r\n   function Locationset (e){\r\n     const location=\"lat:\"+e.lat+\", lng:\"+e.lng;\r\n-    setLocation({...location, location })\r\n+    setLocation({...location, lat:e.lat, lng:e.lng})\r\n \r\n   }\r\n   \r\n \r\n"
+                },
+                {
+                    "date": 1661911477300,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,10 +9,10 @@\n \r\n \r\n export default function usersMapLocations() {\r\n   const myArr= [\r\n-    {product: 'egg', price: 5, id:1},\r\n-    {product: 'cake', price: 3, id:2}\r\n+    {let: 0, lat:0, id:1}\r\n+    \r\n ]\r\n \r\n   const [name, setName] = useState()\r\n   const [surname, setSurname] = useState()\r\n@@ -102,10 +102,11 @@\n     zoom: 11\r\n   };\r\n \r\n   function Locationset (e){\r\n-    const location=\"lat:\"+e.lat+\", lng:\"+e.lng;\r\n-    setLocation({...location, lat:e.lat, lng:e.lng})\r\n+  \r\n+    const index=location.length\r\n+    setLocation({...location, id:index,lat:e.lat, lng:e.lng})\r\n \r\n   }\r\n   \r\n \r\n"
+                },
+                {
+                    "date": 1661911553416,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,9 +104,9 @@\n \r\n   function Locationset (e){\r\n   \r\n     const index=location.length\r\n-    setLocation({...location, id:index,lat:e.lat, lng:e.lng})\r\n+    setLocation({...location, lat:e.lat, lng:e.lng,id:index})\r\n \r\n   }\r\n   \r\n \r\n"
+                },
+                {
+                    "date": 1661911649888,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,9 +104,10 @@\n \r\n   function Locationset (e){\r\n   \r\n     const index=location.length\r\n-    setLocation({...location, lat:e.lat, lng:e.lng,id:index})\r\n+    const value= {lat:e.lat, lng:e.lng,id:index}\r\n+    setLocation({...location,value})\r\n \r\n   }\r\n   \r\n \r\n"
+                },
+                {
+                    "date": 1661911713864,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,9 +104,9 @@\n \r\n   function Locationset (e){\r\n   \r\n     const index=location.length\r\n-    const value= {lat:e.lat, lng:e.lng,id:index}\r\n+    const value= [{lat:e.lat, lng:e.lng,id:index}]\r\n     setLocation({...location,value})\r\n \r\n   }\r\n   \r\n"
+                },
+                {
+                    "date": 1661911778327,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -104,9 +104,9 @@\n \r\n   function Locationset (e){\r\n   \r\n     const index=location.length\r\n-    const value= [{lat:e.lat, lng:e.lng,id:index}]\r\n+        const value= [{lat:e.lat, lng:e.lng,id:index}]\r\n     setLocation({...location,value})\r\n \r\n   }\r\n   \r\n"
+                },
+                {
+                    "date": 1661912086602,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,11 +103,18 @@\n   };\r\n \r\n   function Locationset (e){\r\n   \r\n-    const index=location.length\r\n-        const value= [{lat:e.lat, lng:e.lng,id:index}]\r\n-    setLocation({...location,value})\r\n+  \r\n+      // 👇️ push to end of state array\r\n+      setNames(current => [...current,e]);\r\n+  \r\n+      // 👇️ spread an array into the state array\r\n+      // setNames(current => [...current, ...['Carl', 'Delilah']]);\r\n+  \r\n+      // 👇️ push to beginning of state array\r\n+      // setNames(current => ['Zoey', ...current]);\r\n+  \r\n \r\n   }\r\n   \r\n \r\n"
+                },
+                {
+                    "date": 1661912273639,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -8,12 +8,12 @@\n \r\n \r\n \r\n export default function usersMapLocations() {\r\n-  const myArr= [\r\n-    {let: 0, lat:0, id:1}\r\n-    \r\n-]\r\n+  const initialState = [\r\n+    {id: 1, lat:10,lng:10},\r\n+   \r\n+  ];\r\n \r\n   const [name, setName] = useState()\r\n   const [surname, setSurname] = useState()\r\n   const [username, setUsername] = useState()\r\n@@ -24,9 +24,9 @@\n   const [latLng, setLatLng] = useState();\r\n   const [maps, setMaps] = useState(null);\r\n   const [map, setMap] = useState(null);\r\n \r\n-  const [location, setLocation] = useState( myArr)\r\n+  const [location, setLocation] = useState(initialState)\r\n   const [userList, setUserList] = useState()\r\n   const [selectedUser, setSelectedUser] = useState()\r\n \r\n   useEffect(() => {\r\n@@ -105,9 +105,9 @@\n   function Locationset (e){\r\n   \r\n   \r\n       // 👇️ push to end of state array\r\n-      setNames(current => [...current,e]);\r\n+      setNames( current => [...current,e]);\r\n   \r\n       // 👇️ spread an array into the state array\r\n       // setNames(current => [...current, ...['Carl', 'Delilah']]);\r\n   \r\n"
+                },
+                {
+                    "date": 1661912422303,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,18 +103,10 @@\n   };\r\n \r\n   function Locationset (e){\r\n   \r\n+      setLocation(current => [...current, {id: location.length , lat:e.lat,lng:e.lng}]);\r\n   \r\n-      // 👇️ push to end of state array\r\n-      setNames( current => [...current,e]);\r\n-  \r\n-      // 👇️ spread an array into the state array\r\n-      // setNames(current => [...current, ...['Carl', 'Delilah']]);\r\n-  \r\n-      // 👇️ push to beginning of state array\r\n-      // setNames(current => ['Zoey', ...current]);\r\n-  \r\n \r\n   }\r\n   \r\n \r\n"
+                },
+                {
+                    "date": 1661912616149,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,8 +2,9 @@\n import GoogleMapReact from 'google-map-react';\r\n import Head from \"next/head\";\r\n import SideNavBar from './../component/SideNavbar'\r\n import axios from '../../apiConfig/axios';\r\n+import { Rewind } from 'phosphor-react';\r\n \r\n \r\n \r\n \r\n@@ -108,11 +109,21 @@\n   \r\n \r\n   }\r\n   \r\n+  function userSelectedChange (e){\r\n \r\n+    axios.post(`userData.php`, { e}).then(response => {\r\n+      setUsername(response.data.Username)\r\n+      setSurname(response.data.Surname)\r\n+      setName(response.data.Name)\r\n+      selectedUser(response.data.Username)\r\n \r\n+    })\r\n+  }\r\n \r\n+\r\n+\r\n   return (\r\n     <>\r\n       <Head>\r\n         <title>Test Case - Users Map Locations</title>\r\n@@ -127,9 +138,9 @@\n             <form action=\"#\" method=\"POST\" className=' mt-6 md:flex w-full flex-row justify-start items-start '>\r\n \r\n               <div className='w-1/5'>\r\n                 <label className=\"block text-gray-700 w-1/5\">Username</label>\r\n-                <select onChange={(e) => setSelectedUser(e.target.value)} className=\"w-full  px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none\">\r\n+                <select onChange={(e) => userSelectedChange(e.target.value)} className=\"w-full  px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none\">\r\n                 {userList?.map(function(e,key){\r\n                   return(\r\n                     <option value={e.Username}>{e.Username}</option>\r\n                   )\r\n"
+                },
+                {
+                    "date": 1661912720964,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -110,9 +110,9 @@\n \r\n   }\r\n   \r\n   function userSelectedChange (e){\r\n-\r\n+    \r\n     axios.post(`userData.php`, { e}).then(response => {\r\n       setUsername(response.data.Username)\r\n       setSurname(response.data.Surname)\r\n       setName(response.data.Name)\r\n"
+                },
+                {
+                    "date": 1661912832244,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -109,15 +109,15 @@\n   \r\n \r\n   }\r\n   \r\n-  function userSelectedChange (e){\r\n+  function userSelectedChange (){\r\n     \r\n-    axios.post(`userData.php`, { e}).then(response => {\r\n+    axios.post(`userData.php`, {selectedUser}).then(response => {\r\n       setUsername(response.data.Username)\r\n       setSurname(response.data.Surname)\r\n       setName(response.data.Name)\r\n-      selectedUser(response.data.Username)\r\n+      setSelectedUser(response.data.Username)\r\n \r\n     })\r\n   }\r\n \r\n@@ -138,9 +138,9 @@\n             <form action=\"#\" method=\"POST\" className=' mt-6 md:flex w-full flex-row justify-start items-start '>\r\n \r\n               <div className='w-1/5'>\r\n                 <label className=\"block text-gray-700 w-1/5\">Username</label>\r\n-                <select onChange={(e) => userSelectedChange(e.target.value)} className=\"w-full  px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none\">\r\n+                <select onChange={(e) =>{ userSelectedChange(e.target.value), setSelectedUser(response.data.Username)}} className=\"w-full  px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none\">\r\n                 {userList?.map(function(e,key){\r\n                   return(\r\n                     <option value={e.Username}>{e.Username}</option>\r\n                   )\r\n"
+                },
+                {
+                    "date": 1661912890863,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -138,9 +138,9 @@\n             <form action=\"#\" method=\"POST\" className=' mt-6 md:flex w-full flex-row justify-start items-start '>\r\n \r\n               <div className='w-1/5'>\r\n                 <label className=\"block text-gray-700 w-1/5\">Username</label>\r\n-                <select onChange={(e) =>{ userSelectedChange(e.target.value), setSelectedUser(response.data.Username)}} className=\"w-full  px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none\">\r\n+                <select onChange={(e) =>{ setSelectedUser(e.target.value), userSelectedChange(e.target.value)}} className=\"w-full  px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none\">\r\n                 {userList?.map(function(e,key){\r\n                   return(\r\n                     <option value={e.Username}>{e.Username}</option>\r\n                   )\r\n"
+                },
+                {
+                    "date": 1661912967442,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -109,11 +109,11 @@\n   \r\n \r\n   }\r\n   \r\n-  function userSelectedChange (){\r\n+  function userSelectedChange (e){\r\n     \r\n-    axios.post(`userData.php`, {selectedUser}).then(response => {\r\n+    axios.post(`userData.php`, {e}).then(response => {\r\n       setUsername(response.data.Username)\r\n       setSurname(response.data.Surname)\r\n       setName(response.data.Name)\r\n       setSelectedUser(response.data.Username)\r\n"
+                },
+                {
+                    "date": 1661913039465,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -111,9 +111,9 @@\n   }\r\n   \r\n   function userSelectedChange (e){\r\n     \r\n-    axios.post(`userData.php`, {e}).then(response => {\r\n+    axios.get(`userData.php`, {e}).then(response => {\r\n       setUsername(response.data.Username)\r\n       setSurname(response.data.Surname)\r\n       setName(response.data.Name)\r\n       setSelectedUser(response.data.Username)\r\n"
+                },
+                {
+                    "date": 1661913064222,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -111,9 +111,9 @@\n   }\r\n   \r\n   function userSelectedChange (e){\r\n     \r\n-    axios.get(`userData.php`, {e}).then(response => {\r\n+    axios.post(`userData.php`, {e}).then(response => {\r\n       setUsername(response.data.Username)\r\n       setSurname(response.data.Surname)\r\n       setName(response.data.Name)\r\n       setSelectedUser(response.data.Username)\r\n"
+                },
+                {
+                    "date": 1661913108003,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -110,9 +110,9 @@\n \r\n   }\r\n   \r\n   function userSelectedChange (e){\r\n-    \r\n+    console.log(e)\r\n     axios.post(`userData.php`, {e}).then(response => {\r\n       setUsername(response.data.Username)\r\n       setSurname(response.data.Surname)\r\n       setName(response.data.Name)\r\n"
+                },
+                {
+                    "date": 1661913302511,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,10 +103,18 @@\n     zoom: 11\r\n   };\r\n \r\n   function Locationset (e){\r\n-  \r\n+    useEffect(() => {\r\n+\r\n       setLocation(current => [...current, {id: location.length , lat:e.lat,lng:e.lng}]);\r\n+     \r\n+    }, [selectedUser])\r\n+    return (\r\n+      <></>\r\n+    )\r\n+\r\n+     \r\n   \r\n \r\n   }\r\n   \r\n"
+                },
+                {
+                    "date": 1661913329464,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -103,18 +103,10 @@\n     zoom: 11\r\n   };\r\n \r\n   function Locationset (e){\r\n-    useEffect(() => {\r\n-\r\n+  \r\n       setLocation(current => [...current, {id: location.length , lat:e.lat,lng:e.lng}]);\r\n-     \r\n-    }, [selectedUser])\r\n-    return (\r\n-      <></>\r\n-    )\r\n-\r\n-     \r\n   \r\n \r\n   }\r\n   \r\n"
+                },
+                {
+                    "date": 1661913405213,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -156,9 +156,9 @@\n \r\n             <div className=' p-10 flex flex-col'>\r\n               <label>Name:  {name}  </label>\r\n               <label>  Surname: {surname}  </label>\r\n-              <label>   Username: {selectedUser}</label>\r\n+              <label>   Username: {username}</label>\r\n \r\n             </div>\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1661913485333,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -154,9 +154,9 @@\n \r\n             </form>\r\n \r\n             <div className=' p-10 flex flex-col'>\r\n-              <label>Name:  {name}  </label>\r\n+              <label>Name:  {{name}}  </label>\r\n               <label>  Surname: {surname}  </label>\r\n               <label>   Username: {username}</label>\r\n \r\n             </div>\r\n"
+                },
+                {
+                    "date": 1661913510270,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -154,9 +154,9 @@\n \r\n             </form>\r\n \r\n             <div className=' p-10 flex flex-col'>\r\n-              <label>Name:  {{name}}  </label>\r\n+              <label>Name:  {name}  </label>\r\n               <label>  Surname: {surname}  </label>\r\n               <label>   Username: {username}</label>\r\n \r\n             </div>\r\n"
+                },
+                {
+                    "date": 1661913551030,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -39,9 +39,9 @@\n     if (selectedUser !== \"\") {\r\n \r\n \r\n       axios.post(`userData.php`, { selectedUser }).then(response => {\r\n-        setUsername(response.data.Username)\r\n+        setUsername(\"sa\")\r\n         setSurname(response.data.Surname)\r\n         setName(response.data.Name)\r\n \r\n \r\n"
+                },
+                {
+                    "date": 1661913580333,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -112,9 +112,9 @@\n   \r\n   function userSelectedChange (e){\r\n     console.log(e)\r\n     axios.post(`userData.php`, {e}).then(response => {\r\n-      setUsername(response.data.Username)\r\n+      setUsername(\"sdas\")\r\n       setSurname(response.data.Surname)\r\n       setName(response.data.Name)\r\n       setSelectedUser(response.data.Username)\r\n \r\n"
+                },
+                {
+                    "date": 1661913627034,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -112,9 +112,9 @@\n   \r\n   function userSelectedChange (e){\r\n     console.log(e)\r\n     axios.post(`userData.php`, {e}).then(response => {\r\n-      setUsername(\"sdas\")\r\n+      setUsername(response.Username)\r\n       setSurname(response.data.Surname)\r\n       setName(response.data.Name)\r\n       setSelectedUser(response.data.Username)\r\n \r\n"
+                },
+                {
+                    "date": 1661913693932,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -112,12 +112,12 @@\n   \r\n   function userSelectedChange (e){\r\n     console.log(e)\r\n     axios.post(`userData.php`, {e}).then(response => {\r\n-      setUsername(response.Username)\r\n-      setSurname(response.data.Surname)\r\n-      setName(response.data.Name)\r\n-      setSelectedUser(response.data.Username)\r\n+      setUsername(response.data.username)\r\n+      setSurname(response.data.surname)\r\n+      setName(response.data.name)\r\n+      setSelectedUser(response.data.username)\r\n \r\n     })\r\n   }\r\n \r\n"
+                },
+                {
+                    "date": 1661913849338,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n \r\n   const [name, setName] = useState()\r\n   const [surname, setSurname] = useState()\r\n   const [username, setUsername] = useState()\r\n- \r\n+ const[saveButton,setSaveButton]=useState(\"none\")\r\n \r\n \r\n \r\n   const [latLng, setLatLng] = useState();\r\n@@ -105,9 +105,9 @@\n \r\n   function Locationset (e){\r\n   \r\n       setLocation(current => [...current, {id: location.length , lat:e.lat,lng:e.lng}]);\r\n-  \r\n+      setSaveButton(\"block\")\r\n \r\n   }\r\n   \r\n   function userSelectedChange (e){\r\n"
+                },
+                {
+                    "date": 1661914013567,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -182,9 +182,18 @@\n                 </> : <></>\r\n \r\n               }\r\n             </GoogleMapReact>\r\n-\r\n+            <div style={{display:{saveButton}}} className=\"w-full\">\r\n+            <button\r\n+                          type=\"submit\"\r\n+                          className=\"w-2/5 block  bg-green-500 hover:bg-blue-400 focus:bg-blue-400 text-white font-semibold rounded-lg\r\n+          px-4 py-3 mt-2\" \r\n+                        >\r\n+                         Save Location\r\n+                        </button>\r\n+              </div>\r\n+         \r\n           </div>\r\n \r\n \r\n \r\n"
+                },
+                {
+                    "date": 1661914142650,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -17,9 +17,9 @@\n \r\n   const [name, setName] = useState()\r\n   const [surname, setSurname] = useState()\r\n   const [username, setUsername] = useState()\r\n- const[saveButton,setSaveButton]=useState(\"none\")\r\n+ const[saveButton,setSaveButton]=useState(false)\r\n \r\n \r\n \r\n   const [latLng, setLatLng] = useState();\r\n@@ -105,9 +105,9 @@\n \r\n   function Locationset (e){\r\n   \r\n       setLocation(current => [...current, {id: location.length , lat:e.lat,lng:e.lng}]);\r\n-      setSaveButton(\"block\")\r\n+      setSaveButton(true)\r\n \r\n   }\r\n   \r\n   function userSelectedChange (e){\r\n@@ -182,9 +182,9 @@\n                 </> : <></>\r\n \r\n               }\r\n             </GoogleMapReact>\r\n-            <div style={{display:{saveButton}}} className=\"w-full\">\r\n+            <div style={{display: saveButton ? \"block\" : \"none\"}} className=\"w-full\">\r\n             <button\r\n                           type=\"submit\"\r\n                           className=\"w-2/5 block  bg-green-500 hover:bg-blue-400 focus:bg-blue-400 text-white font-semibold rounded-lg\r\n           px-4 py-3 mt-2\" \r\n"
+                },
+                {
+                    "date": 1661914379991,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -13,9 +13,9 @@\n   const initialState = [\r\n     {id: 1, lat:10,lng:10},\r\n    \r\n   ];\r\n-\r\n+  const [location, setLocation] = useState(initialState)\r\n   const [name, setName] = useState()\r\n   const [surname, setSurname] = useState()\r\n   const [username, setUsername] = useState()\r\n  const[saveButton,setSaveButton]=useState(false)\r\n@@ -25,9 +25,9 @@\n   const [latLng, setLatLng] = useState();\r\n   const [maps, setMaps] = useState(null);\r\n   const [map, setMap] = useState(null);\r\n \r\n-  const [location, setLocation] = useState(initialState)\r\n+  \r\n   const [userList, setUserList] = useState()\r\n   const [selectedUser, setSelectedUser] = useState()\r\n \r\n   useEffect(() => {\r\n@@ -184,8 +184,9 @@\n               }\r\n             </GoogleMapReact>\r\n             <div style={{display: saveButton ? \"block\" : \"none\"}} className=\"w-full\">\r\n             <button\r\n+              onClick={(e) => saveUserLocations(location)}\r\n                           type=\"submit\"\r\n                           className=\"w-2/5 block  bg-green-500 hover:bg-blue-400 focus:bg-blue-400 text-white font-semibold rounded-lg\r\n           px-4 py-3 mt-2\" \r\n                         >\r\n"
+                },
+                {
+                    "date": 1661914618816,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -108,9 +108,45 @@\n       setLocation(current => [...current, {id: location.length , lat:e.lat,lng:e.lng}]);\r\n       setSaveButton(true)\r\n \r\n   }\r\n-  \r\n+  function saveUserLocations (e){\r\n+    e.preventDefault();\r\n+      \r\n+      swal({\r\n+        title: \"Are you sure?\",\r\n+        text: \"Do you want to save the locations selected for the user?\",\r\n+        icon: \"info\",\r\n+        buttons: true,\r\n+        dangerMode: true,\r\n+      })\r\n+      .then((adduser) => {\r\n+        if (adduser) {\r\n+          axios.post(`locationsAdd.php`,{e,username}).then(response => {\r\n+      \r\n+            console.log(response.data.userData)\r\n+            if(response.data.message){\r\n+              \r\n+              swal(\"Successfully registered.\", {\r\n+                icon: \"success\",\r\n+              })\r\n+             \r\n+            }\r\n+            else{\r\n+              console.log(\"error! try again.\")\r\n+            }\r\n+            \r\n+          \r\n+           \r\n+          });\r\n+          \r\n+        } else {\r\n+          swal(\"You have canceled adding users.\");\r\n+        }\r\n+      });\r\n+\r\n+}\r\n+\r\n   function userSelectedChange (e){\r\n     console.log(e)\r\n     axios.post(`userData.php`, {e}).then(response => {\r\n       setUsername(response.data.username)\r\n"
+                },
+                {
+                    "date": 1661914919486,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -109,9 +109,9 @@\n       setSaveButton(true)\r\n \r\n   }\r\n   function saveUserLocations (e){\r\n-    e.preventDefault();\r\n+\r\n       \r\n       swal({\r\n         title: \"Are you sure?\",\r\n         text: \"Do you want to save the locations selected for the user?\",\r\n"
+                },
+                {
+                    "date": 1661914957022,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -2,10 +2,10 @@\n import GoogleMapReact from 'google-map-react';\r\n import Head from \"next/head\";\r\n import SideNavBar from './../component/SideNavbar'\r\n import axios from '../../apiConfig/axios';\r\n-import { Rewind } from 'phosphor-react';\r\n \r\n+import swal from 'sweetalert';\r\n \r\n \r\n \r\n \r\n"
+                },
+                {
+                    "date": 1661916978793,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -204,9 +204,9 @@\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n-              onClick={(e) => { setLatLng(e),Locationset(e) }}\r\n+              onClick={(e) => { setLatLng(e),Locationset(e),console.log(e) }}\r\n               \r\n               onGoogleApiLoaded={({ map, maps }) => {\r\n                 handleApiLoaded(map, maps);\r\n               }}\r\n"
+                },
+                {
+                    "date": 1661917341391,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -96,10 +96,10 @@\n   };\r\n \r\n   const defaultProps = {\r\n     center: {\r\n-      lat: 10.99835602,\r\n-      lng: 77.01502627\r\n+      lat: 41,\r\n+      lng: 28\r\n     },\r\n     zoom: 11\r\n   };\r\n \r\n"
+                },
+                {
+                    "date": 1661917509572,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -96,10 +96,10 @@\n   };\r\n \r\n   const defaultProps = {\r\n     center: {\r\n-      lat: 41,\r\n-      lng: 28\r\n+      lat: 41.013281483623146,\r\n+      lng: 28.978454052998472\r\n     },\r\n     zoom: 11\r\n   };\r\n \r\n"
+                },
+                {
+                    "date": 1661917841198,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -199,9 +199,9 @@\n \r\n \r\n \r\n           </div>\r\n-          <div className='w-full h-full'>\r\n+          <div className='w-full h-full mapcontainer'>\r\n             <GoogleMapReact\r\n               bootstrapURLKeys={{ key: \"AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk\" }}\r\n               defaultCenter={defaultProps.center}\r\n               defaultZoom={defaultProps.zoom}\r\n"
+                },
+                {
+                    "date": 1661918120520,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -99,9 +99,9 @@\n     center: {\r\n       lat: 41.013281483623146,\r\n       lng: 28.978454052998472\r\n     },\r\n-    zoom: 11\r\n+    zoom: 6\r\n   };\r\n \r\n   function Locationset (e){\r\n   \r\n"
                 }
             ],
             "date": 1661821350880,

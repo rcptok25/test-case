@@ -3,7 +3,7 @@
     "activeCommit": 0,
     "commits": [
         {
-            "activePatchIndex": 5,
+            "activePatchIndex": 14,
             "patches": [
                 {
                     "date": 1661821421061,
@@ -28,6 +28,42 @@
                 {
                     "date": 1661871371048,
                     "content": "Index: \n===================================================================\n--- \n+++ \n@@ -1,5 +1,5 @@\n-import { useDemo, useState ,useEffect} from 'react'\r\n+import { useState ,useEffect} from 'react'\r\n import GoogleMapReact from 'google-map-react';\r\n \r\n import Head from \"next/head\";\r\n import SideNavBar from './../component/SideNavbar'\r\n"
+                },
+                {
+                    "date": 1661918089580,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,13 +12,14 @@\n   const MapMarker = ({ position, maps, map }) => {\r\n \r\n     useEffect(() => {\r\n         const marker = new maps.Marker({\r\n-            position,\r\n+            position:{lat: 10.99835602,\r\n+                lng: 77.01502627},\r\n             map,\r\n             title: \"Hello World!\",\r\n         });\r\n-        setLocation(\"Lat: \"+position?.lat+\", Lng: \"+position?.lng)\r\n+      \r\n     }, [position?.lat,position?.lng])\r\n     return (\r\n         <></>\r\n     )\r\n"
+                },
+                {
+                    "date": 1661918126061,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -45,14 +45,15 @@\n           zoomControl: false,\r\n       });\r\n   };\r\n \r\n+\r\n   const defaultProps = {\r\n-      center: {\r\n-          lat: 10.99835602,\r\n-          lng: 77.01502627\r\n-      },\r\n-      zoom: 11\r\n+    center: {\r\n+      lat: 41.013281483623146,\r\n+      lng: 28.978454052998472\r\n+    },\r\n+    zoom: 6\r\n   };\r\n \r\n   return (\r\n     \r\n"
+                },
+                {
+                    "date": 1661918158565,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -12,10 +12,9 @@\n   const MapMarker = ({ position, maps, map }) => {\r\n \r\n     useEffect(() => {\r\n         const marker = new maps.Marker({\r\n-            position:{lat: 10.99835602,\r\n-                lng: 77.01502627},\r\n+            position,\r\n             map,\r\n             title: \"Hello World!\",\r\n         });\r\n       \r\n"
+                },
+                {
+                    "date": 1661918215333,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -9,9 +9,9 @@\n   const [map, setMap] = useState(null);\r\n   const [location,setLocation]=useState(\"Maps Location\")\r\n \r\n   const MapMarker = ({ position, maps, map }) => {\r\n-\r\n+    \r\n     useEffect(() => {\r\n         const marker = new maps.Marker({\r\n             position,\r\n             map,\r\n@@ -78,9 +78,10 @@\n                 \r\n             >\r\n                 {!!latLng ?\r\n                     <>\r\n-                        <MapMarker map={map} maps={maps} position={latLng}></MapMarker>\r\n+                        <MapMarker map={map} maps={maps} position={{lat: 41.013281483623146,\r\n+      lng: 28.978454052998472}}></MapMarker>\r\n                     </> : <></>\r\n \r\n                 }\r\n             </GoogleMapReact>\r\n"
+                },
+                {
+                    "date": 1661918237350,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,10 +78,9 @@\n                 \r\n             >\r\n                 {!!latLng ?\r\n                     <>\r\n-                        <MapMarker map={map} maps={maps} position={{lat: 41.013281483623146,\r\n-      lng: 28.978454052998472}}></MapMarker>\r\n+                        <MapMarker map={map} maps={maps} position={latLng}></MapMarker>\r\n                     </> : <></>\r\n \r\n                 }\r\n             </GoogleMapReact>\r\n"
+                },
+                {
+                    "date": 1661918247263,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,9 +78,10 @@\n                 \r\n             >\r\n                 {!!latLng ?\r\n                     <>\r\n-                        <MapMarker map={map} maps={maps} position={latLng}></MapMarker>\r\n+                        <MapMarker map={map} maps={{lat: 41.013281483623146,\r\n+      lng: 28.978454052998472}} position={latLng}></MapMarker>\r\n                     </> : <></>\r\n \r\n                 }\r\n             </GoogleMapReact>\r\n"
+                },
+                {
+                    "date": 1661918270865,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,10 +78,10 @@\n                 \r\n             >\r\n                 {!!latLng ?\r\n                     <>\r\n-                        <MapMarker map={map} maps={{lat: 41.013281483623146,\r\n-      lng: 28.978454052998472}} position={latLng}></MapMarker>\r\n+                        <MapMarker map={{lat: 41.013281483623146,\r\n+      lng: 28.978454052998472}} maps={maps} position={latLng}></MapMarker>\r\n                     </> : <></>\r\n \r\n                 }\r\n             </GoogleMapReact>\r\n"
+                },
+                {
+                    "date": 1661918291441,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -78,10 +78,9 @@\n                 \r\n             >\r\n                 {!!latLng ?\r\n                     <>\r\n-                        <MapMarker map={{lat: 41.013281483623146,\r\n-      lng: 28.978454052998472}} maps={maps} position={latLng}></MapMarker>\r\n+                        <MapMarker map={map} maps={maps} position={latLng}></MapMarker>\r\n                     </> : <></>\r\n \r\n                 }\r\n             </GoogleMapReact>\r\n"
+                },
+                {
+                    "date": 1661918323315,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n@@ -37,9 +37,10 @@\n           mapTypeControlOptions: {\r\n             \r\n           \r\n               style: maps.MapTypeControlStyle.DEFAULT,\r\n-              position: maps.ControlPosition.TOP_CENTER,\r\n+              position:{llat: 41.013281483623146,\r\n+                lng: 28.978454052998472},\r\n               mapTypeIds: [\"roadmap\", \"satellite\"],\r\n           },\r\n           zoomControl: false,\r\n       });\r\n"
                 }
             ],
             "date": 1661821421061,

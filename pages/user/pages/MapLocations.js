@@ -10,14 +10,14 @@ function userAdd() {
   const [location,setLocation]=useState("Maps Location")
 
   const MapMarker = ({ position, maps, map }) => {
-
+    
     useEffect(() => {
         const marker = new maps.Marker({
             position,
             map,
             title: "Hello World!",
         });
-        setLocation("Lat: "+position?.lat+", Lng: "+position?.lng)
+      
     }, [position?.lat,position?.lng])
     return (
         <></>
@@ -45,12 +45,13 @@ function userAdd() {
       });
   };
 
+
   const defaultProps = {
-      center: {
-          lat: 10.99835602,
-          lng: 77.01502627
-      },
-      zoom: 11
+    center: {
+      lat: 41.013281483623146,
+      lng: 28.978454052998472
+    },
+    zoom: 6
   };
 
   return (

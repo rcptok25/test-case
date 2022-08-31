@@ -18,7 +18,14 @@ a {
 * {
   box-sizing: border-box;
 }
-.map-container {
+.mapcontainer {
   width: 80%;
-  height: 68%;
+  height: 72%;
+}
+
+@media screen and (max-width: 775px) {
+  .mapcontainer {
+    width: 95%;
+    height: 400px;
+  }
 }

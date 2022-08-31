@@ -4,16 +4,21 @@ import Head from "next/head";
 import SideNavBar from './../component/SideNavbar'
 import axios from '../../apiConfig/axios';
 
+import swal from 'sweetalert';
 
 
 
 
 export default function usersMapLocations() {
-
+  const initialState = [
+    {id: 1, lat:10,lng:10},
+   
+  ];
+  const [location, setLocation] = useState(initialState)
   const [name, setName] = useState()
   const [surname, setSurname] = useState()
   const [username, setUsername] = useState()
-
+ const[saveButton,setSaveButton]=useState(false)
 
 
 
@@ -21,8 +26,8 @@ export default function usersMapLocations() {
   const [maps, setMaps] = useState(null);
   const [map, setMap] = useState(null);
 
-  const [location, setLocation] = useState("Maps Location")
-
+  
+  const [userList, setUserList] = useState()
   const [selectedUser, setSelectedUser] = useState()
 
   useEffect(() => {
@@ -35,7 +40,7 @@ export default function usersMapLocations() {
 
 
       axios.post(`userData.php`, { selectedUser }).then(response => {
-        setUsername(window.sessionStorage.getItem("Registeruser"))
+        setUsername("sa")
         setSurname(response.data.Surname)
         setName(response.data.Name)
 
@@ -45,7 +50,13 @@ export default function usersMapLocations() {
     else {
       setSelectUser("Select User")
     }
-  })
+
+    axios.get(`userList.php`).then(response => {
+      setUserList(response.data.usersList);
+
+    });
+
+  },[])
 
 
   const MapMarker = ({ position, maps, map }) => {
@@ -57,15 +68,14 @@ export default function usersMapLocations() {
         map,
         title: "Hello World!",
       });
-      setLocation("Lat: " + position?.lat + ", Lng: " + position?.lng)
+      console.log(location)
+     
     }, [position?.lat, position?.lng])
     return (
       <></>
     )
 
   }
-
-
 
   const handleApiLoaded = (map, maps) => {
     setMap(map);
@@ -87,11 +97,66 @@ export default function usersMapLocations() {
 
   const defaultProps = {
     center: {
-      lat: 10.99835602,
-      lng: 77.01502627
+      lat: 41.013281483623146,
+      lng: 28.978454052998472
     },
-    zoom: 11
+    zoom: 6
   };
+
+  function Locationset (e){
+  
+      setLocation(current => [...current, {id: location.length , lat:e.lat,lng:e.lng}]);
+      setSaveButton(true)
+
+  }
+  function saveUserLocations (e){
+
+      
+      swal({
+        title: "Are you sure?",
+        text: "Do you want to save the locations selected for the user?",
+        icon: "info",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((adduser) => {
+        if (adduser) {
+          axios.post(`locationsAdd.php`,{e,username}).then(response => {
+      
+            console.log(response.data.userData)
+            if(response.data.message){
+              
+              swal("Successfully registered.", {
+                icon: "success",
+              })
+             
+            }
+            else{
+              console.log("error! try again.")
+            }
+            
+          
+           
+          });
+          
+        } else {
+          swal("You have canceled adding users.");
+        }
+      });
+
+}
+
+  function userSelectedChange (e){
+    console.log(e)
+    axios.post(`userData.php`, {e}).then(response => {
+      setUsername(response.data.username)
+      setSurname(response.data.surname)
+      setName(response.data.name)
+      setSelectedUser(response.data.username)
+
+    })
+  }
+
 
 
   return (
@@ -110,34 +175,38 @@ export default function usersMapLocations() {
 
               <div className='w-1/5'>
                 <label className="block text-gray-700 w-1/5">Username</label>
-                <select onChange={(e) => console.log(e.target.value)} className="w-full  px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none">
-                  <option value="a">a</option>
-                  <option selected value="b">b</option>
-                  <option value="c">c</option>
-                  <option value="d">d</option>
+                <select onChange={(e) =>{ setSelectedUser(e.target.value), userSelectedChange(e.target.value)}} className="w-full  px-4 py-3 rounded-lg bg-gray-200 mt-2 border focus:border-blue-500 focus:bg-white focus:outline-none">
+                {userList?.map(function(e,key){
+                  return(
+                    <option value={e.Username}>{e.Username}</option>
+                  )
+                })}
                 </select>
               </div>
 
 
 
-
+                  {console.log(location)}
 
             </form>
 
-            <div className=' p-10'>
-              <label>User Name:  {name}  - User Surname: {surname}  - Username: {username}</label>
+            <div className=' p-10 flex flex-col'>
+              <label>Name:  {name}  </label>
+              <label>  Surname: {surname}  </label>
+              <label>   Username: {username}</label>
 
             </div>
 
 
 
           </div>
-          <div className='w-full h-full'>
+          <div className='w-full h-full mapcontainer'>
             <GoogleMapReact
               bootstrapURLKeys={{ key: "AIzaSyAhkyqtF5czuz-KzzOv3Z8skkl2b_9koDk" }}
               defaultCenter={defaultProps.center}
               defaultZoom={defaultProps.zoom}
-              onClick={(e) => { setLatLng(e) }}
+              onClick={(e) => { setLatLng(e),Locationset(e),console.log(e) }}
+              
               onGoogleApiLoaded={({ map, maps }) => {
                 handleApiLoaded(map, maps);
               }}
@@ -150,7 +219,17 @@ export default function usersMapLocations() {
 
               }
             </GoogleMapReact>
-
+            <div style={{display: saveButton ? "block" : "none"}} className="w-full">
+            <button
+              onClick={(e) => saveUserLocations(location)}
+                          type="submit"
+                          className="w-2/5 block  bg-green-500 hover:bg-blue-400 focus:bg-blue-400 text-white font-semibold rounded-lg
+          px-4 py-3 mt-2" 
+                        >
+                         Save Location
+                        </button>
+              </div>
+         
           </div>
 
 
